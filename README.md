@@ -1,2 +1,14 @@
-# applepay-southkorea-map
-Data-Based Information on Stores Supporting Apple Pay #애플페이
+# ApplePay Maps
+대한민국에서 애플페이를 지원하는 매장을 지도로 확인할 수 있습니다. 
+
+# 목적
+애플페이 지원 매장에 대한 지도 앱 서비스는<br/> 
+이미 앱 마켓에 널려있는 모습을 볼 수 있습니다.<br/>
+하지만, 앱을 설치해야만 하는 그 행위가 <br/>
+상당히 번거롭고, 매우 귀찮습니다.<br/> 
+따라서, 저는 웹 브라우저로 손쉽게 정보에 <br/>
+접근할 수 있도록 하기위해 웹 지도를 제작하게 되었습니다.<br/>
+
+# 피드백
+지도에 추가하거나 수정해야할 사항이 존재하는 경우<br/>
+<a href="https://github.com/elsannadisney/ApplePay-Maps/issues">Issues</a>에 글을 남겨주세요. 

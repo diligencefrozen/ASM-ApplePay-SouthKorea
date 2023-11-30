@@ -1,0 +1,372 @@
+/*2023.08.07, index.html과 CSS 소스 코드를 분리시킴.*/
+/* 지도 스크립트 */
+#map {
+  width: 100%;
+  height: 90%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* 팝업 디자인 설정 */
+.infoWindow {
+  font-family: sans-serif, Arial;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  width: 300px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.nav-control {
+  position: absolute;
+  background-color: white;
+  padding: 5px;
+  margin: 10px;
+  z-index: 1;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+}
+/*
+.nav-control-mid-left {
+  position: absolute;
+  margin: 10px;
+  z-index: 1;
+  left: 10px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+}
+.nav-control-bottom-left {
+  position: absolute;
+  margin: 10px;
+  z-index: 1;
+  left: 10px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+}  
+*/
+.nav-control-categories {
+  position: absolute;
+  margin: 10px;
+  z-index: 1;
+  left: 10px;
+  top: calc(30% - 15px);
+  flex-direction: column;
+  display: flex;
+}
+.nav-control-categories button {
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 5px;
+}        
+body {
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
+}
+#search-box {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  background-color: white;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+}
+#search-input {
+  width: 250px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  box-shadow: none;
+  margin-top: 5px; /* 아래로 이동 */
+}
+#search-submit {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: 8px;
+  margin-top: 5px; /* 아래로 이동 */
+}
+#search-submit img {
+  width: 100%;
+  height: 100%;
+}
+/* 업데이트 내역 스타일 */
+#patch-notes {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  font-family: 'Noto Sans KR', sans-serif;
+  z-index: 2; /* 패치노트의 z-index를 높여서 지도 위에 표시 */
+  transform: translateY(100%);
+  transition: transform 0.5s;
+}
+/* 패치노트 버튼 스타일 */
+#patch-notes-toggle {
+  display: block;
+  margin: 10px auto;
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 3; /* 지도 위에 표시 */
+  position: absolute;
+  bottom: 10px;
+  left: calc(50% - 140px); 
+  transform: translateY(-90%); 
+}
+/* 패치노트 내용 스타일 */
+#patch-notes-content {
+  display: none;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: 'Noto Sans KR', sans-serif;
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 2; /* 지도 위에 표시 */
+  transform: translateY(-100%);
+}
+#patch-notes-content.is-active {
+  transform: translateY(0);
+}
+/* 필독사항 영역 스타일 */
+#notice {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  font-family: 'Noto Sans KR', sans-serif;
+  z-index: 1; 
+  transform: translateY(100%);
+  transition: transform 0.5s;
+}
+/* 필독사항 영역 버튼 스타일 */
+#notice-toggle {
+  display: block;
+  margin: 10px auto;
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 3;
+  position: absolute;
+  bottom: 10px;
+  left: calc(50% + 20px);
+  transform: translateY(-90%);
+}
+/* 필독사항 영역 내용 스타일 */
+#notice-content {
+  display: none;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: 'Noto Sans KR', sans-serif;
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 4; 
+  transform: translateY(-100%);
+}
+#notice-content.is-active {
+  transform: translateY(0);
+}
+.popup {
+  display: none;
+  position: absolute;
+  z-index: 100;
+}
+
+/* 모바일 기기에 적용할 스타일 */        
+@media screen and (max-width: 768px) {
+  #map {
+    height: calc(100% - 160px);
+  }  vvvv
+  .nav-control {
+    position: absolute;
+    top: 10px; 
+    left: 10px;
+    z-index: 1000;
+  }
+  #search-box {
+    position: absolute;
+    top: 10px;
+    right: 40px; 
+    z-index: 1;
+  }
+  /*
+  .nav-control {
+    position: absolute;
+    font-size: 1.2rem;
+    padding: 10px;
+    margin: 15px;
+    font-size: 1.2rem;
+    z-index: 1;
+  } 
+  */
+  /*
+  .nav-control-mid-left {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  */  
+  /*
+  #search-box {    
+    top: 50px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    background-color: white;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+  }
+  */
+  #search-input {
+    width: 100%;
+  }
+  /*
+  #patch-notes-toggle, #notice-toggle {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+  }
+  */
+  #search-submit {
+    align-self: flex-end;
+  }
+  #search-submit img {
+    width: 75%; 
+    height: 75%; 
+  }
+  /* 업데이트 내역 스타일 */
+  #patch-notes {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    z-index: 2; /* 패치노트의 z-index를 높여서 지도 위에 표시 */
+    transform: translateY(100%);
+    transition: transform 0.5s;
+  }  
+  #patch-notes-toggle {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 3;
+    position: absolute;
+    bottom: 60px;
+    left: calc(50% - 100px);
+    transform: translateY(-90%);
+  }
+  /*
+  #patch-notes-content {
+    display: none;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Noto Sans KR', sans-serif;
+    max-height: 80vh; 
+    overflow-y: auto;
+    z-index: 2; 
+    transform: translateY(-100%);
+  }
+  */
+  #patch-notes-content, #notice-content {
+    max-height: 80vh;
+  }
+  #patch-notes-content.is-active {
+    transform: translateY(0);
+  }
+  /* 필독사항 영역 스타일 */
+  #notice {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    z-index: 1; 
+    transform: translateY(100%);
+    transition: transform 0.5s;
+  }
+  #notice-toggle {
+    display: inline-block; 
+    margin: 10px auto;
+    padding: 8px 20px;
+    background-color: #007bff; 
+    color: #fff; 
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer;
+    font-size: 16px; 
+    position: absolute;
+    bottom :60px;
+    right: calc(50% -100px);    
+  }
+  /*
+  #notice-content {
+    display: none;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: 'Noto Sans KR', sans-serif;
+    max-height: 80vh; 
+    overflow-y: auto;
+    z-index: 4; 
+    transform: translateY(-100%);
+  }
+  */
+  #notice-content.is-active {
+    transform: translateY(0);
+  }
+  .popup {
+    display: none;
+    position: absolute;
+    z-index: 100;
+  }
+}
