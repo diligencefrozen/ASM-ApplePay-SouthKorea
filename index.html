@@ -9,7 +9,7 @@
     <meta name="description" content="대한민국에서 애플페이를 지원하는 매장을 지도로 확인할 수 있습니다.">
     <meta name="author" content="elsannadisney">
     <meta name="keyword" content="애플페이,애플 페이,Apple Pay,ApplePay,applepay,애플페이 사용처,애플페이지도,애플페이 지도,애플페이사용처,애플페이 가맹점,애플페이가맹점,애플페이 가맹점 지도,애플페이가맹점지도,애플페이맵,애플페이 맵">
-    <link rel="icon" href="https://elsannadisney.github.io/images/logo.ico" type="image/x-icon" />
+    <link rel="icon" href="https://diligencefrozen.github.io/images/logo.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="main.css">
     <title>애플페이 가맹점 찾기</title>
 
@@ -330,7 +330,7 @@ home.addEventListener("click", function () {
           position: newPos,
           map: map,
           image: new kakao.maps.MarkerImage(
-            'https://github.com/elsannadisney/ApplePay-Maps/blob/main/logo/mylocation.png?raw=true',
+            'https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mylocation.png?raw=true',
             new kakao.maps.Size(50, 45),
             {
               offset: new kakao.maps.Point(25, 45),
@@ -438,7 +438,7 @@ home.addEventListener("click", function () {
               var searchPosition = new kakao.maps.LatLng(data[0].y, data[0].x);
               map.setCenter(searchPosition);
               
-              var searchMarkerImage = createMarkerImage('https://github.com/elsannadisney/ApplePay-Maps/blob/main/logo/marker.png?raw=true');
+              var searchMarkerImage = createMarkerImage('https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/marker.png?raw=true');
               var searchMarkerOptions = {
                   position: searchPosition,
                   image: searchMarkerImage,
