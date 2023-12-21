@@ -61,6 +61,7 @@
             <li>20231017.2: 사용자 인터페이스 수정 (검색 버튼 수정)</li>
             <li>20231105.10: 사용자 인터페이스 개선 ('기타' 메뉴 삭제(약국 삭제), 온라인 메뉴 추가, 문의 메뉴 추가)</li>
             <li>20231201.6: 가맹점 업데이트 (백화점/쇼핑, 마트/슈퍼, 커피, 외식, 온라인)</li>
+            <li>20231221.2: 가맹점 업데이트 (외식, 온라인)</li>
         </ul>
     </div>
     
@@ -209,7 +210,7 @@
   var bizzenImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
   var cookienalImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
     
-  /* 외식 2023.12.01 */  
+  /* 외식 2023.12.21 */  
   var lotteriaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
   var mcdonaldsImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
   var kfcImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
@@ -234,6 +235,7 @@
   var shilaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
   var cucharaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
   var outbackImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var pletingImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
     
   /* 생활,가전 2023.08.22 */  
   var ikeaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
@@ -629,7 +631,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
 }      
     
  function searchrestaurants() {
-    /* 외식 2023.12.01 */       
+    /* 외식 2023.12.21 */       
     searchAndMark("롯데리아", createMarkerImage(lotteriaImageUrl));
     searchAndMark("맥도날드", createMarkerImage(mcdonaldsImageUrl));
     searchAndMark("KFC", createMarkerImage(kfcImageUrl));
@@ -653,7 +655,8 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("파파이스", createMarkerImage(papaImageUrl));
     searchAndMark("신라대학교 미대식당", createMarkerImage(shilaImageUrl));
     searchAndMark("쿠차라", createMarkerImage(cucharaImageUrl));
-    searchAndMark("아웃백 스테이크하우스", createMarkerImage(outbackImageUrl));     
+    searchAndMark("아웃백 스테이크하우스", createMarkerImage(outbackImageUrl));   
+    searchAndMark("플레이팅", createMarkerImage(pletingImageUrl)); 
 }    
 
  function searchHomeappliances() {
