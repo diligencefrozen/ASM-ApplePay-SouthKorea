@@ -38,7 +38,7 @@
         <button id="close-patch-notes" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px;">&times;</button>
         <ul>
             <h3><b>패치노트</h3></b>
-            <h4><b><font color="999999">Last Update: 12/20/2023 22:56 EDT</h4></b></font>
+            <h4><b><font color="999999">Last Update: 12/26/2023 13:04 KST</h4></b></font>
             <li>20230524.1: 초기 버전 출시</li>
             <li>20230718.7: 사용자 인터페이스 업데이트 및 가맹점 추가 (편의점, 카페)</li>
             <li>20230720.11: 가맹점 추가 (마트/슈퍼) 및 사용자 인터페이스 개선 (검색 기능 추가)</li>
@@ -62,7 +62,7 @@
             <li>20231105.10: 사용자 인터페이스 개선 ('기타' 메뉴 삭제(약국 삭제), 온라인 메뉴 추가, 문의 메뉴 추가)</li>
             <li>20231201.6: 가맹점 업데이트 (백화점/쇼핑, 마트/슈퍼, 커피, 외식, 온라인)</li>
             <li>20231221.3: 가맹점 업데이트 (외식, 온라인)</li>
-            <li>20231226.2: 가맹점 업데이트 (외식, 백화점/쇼핑)</li>
+            <li>20231226.4: 가맹점 업데이트 (외식, 백화점/쇼핑) 및 사용자 인터페이스 개선</li>
         </ul>
     </div>
     
@@ -94,7 +94,7 @@
         <button id="close-notice" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px;">&times;</button>
         <ul>
             <h3><b>필독사항</h3></b>
-            <h4><b><font color="999999">Last Update: 12/21/2023 22:58 EDT</h4></b></font>
+            <h4><b><font color="999999">Last Update: 12/21/2023 22:58 KST</h4></b></font>
             <li><b>Menu</li></b>
             <li>🏠 집 모양 버튼을 클릭하면, 당신의 현재 위치로 이동합니다.</li>
             <li>🍎 아이폰 사용자는 <a href="https://apps.apple.com/kr/app/%EB%84%A4%EC%9D%B4%EB%B2%84-naver/id393499958">네이버 앱</a>을 사용하세요.</li>
@@ -586,10 +586,12 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("현대백화점", createMarkerImage(hyundaidepartmentStoreImageUrl));
     searchAndMark("현대아울렛", createMarkerImage(hyundaioutletImageUrl));
     searchAndMark("현대백화점면세점", createMarkerImage(hyundaidepartmentStoredutyfreeImageUrl));
+    // 갤러리아 2023.12.26 
+    searchAndMark("갤러리아", createMarkerImage(galerImageUrl)); 
 }  
 
   function searchShoppingMalls() {
-    // 쇼핑 2023.12.26   
+    // 쇼핑 2023.12.21   
     searchAndMark("AK플라자", createMarkerImage(AKplazaImageUrl));  
     searchAndMark("파르나스몰", createMarkerImage(parnasmallImageUrl));  
     searchAndMark("아이파크몰", createMarkerImage(iparkmallImageUrl));  
@@ -598,8 +600,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("무신사스탠다드", createMarkerImage(musinsastandardImageUrl)); 
     searchAndMark("이니스프리", createMarkerImage(innisfreeImageUrl));      
     searchAndMark("스타필드", createMarkerImage(starfieldImageUrl)); 
-    searchAndMark("JDC면세점", createMarkerImage(jdcImageUrl));      
-    searchAndMark("갤러리아", createMarkerImage(galerImageUrl));   
+    searchAndMark("JDC면세점", createMarkerImage(jdcImageUrl));        
 } 
 
     
@@ -635,8 +636,8 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("쿠키날", createMarkerImage(cookienalImageUrl));
 }      
     
- function searchrestaurants() {
-    /* 외식 2023.12.26 */       
+ function searchrestaurants1() {
+    /* 외식 -1 2023.12.26 */       
     searchAndMark("롯데리아", createMarkerImage(lotteriaImageUrl));
     searchAndMark("맥도날드", createMarkerImage(mcdonaldsImageUrl));
     searchAndMark("KFC", createMarkerImage(kfcImageUrl));
@@ -644,7 +645,12 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("라그릴리아", createMarkerImage(lagriliaImageUrl));
     searchAndMark("피그인더가든", createMarkerImage(piginthegardenImageUrl));
     searchAndMark("김가네", createMarkerImage(kimkanaeImageUrl));
-    searchAndMark("봉추찜닭", createMarkerImage(bongchuImageUrl));
+    searchAndMark("봉추찜닭", createMarkerImage(bongchuImageUrl)); 
+}   
+
+    
+ function searchrestaurants2() {
+    /* 외식 -2 2023.12.26 */       
     searchAndMark("스트릿", createMarkerImage(streatImageUrl));
     searchAndMark("퀸즈파크", createMarkerImage(queensparkImageUrl));
     searchAndMark("베라", createMarkerImage(veraImageUrl));
@@ -652,7 +658,12 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("에그슬럿", createMarkerImage(eggImageUrl));
     searchAndMark("시티델리", createMarkerImage(citydeliImageUrl));
     searchAndMark("리나스", createMarkerImage(linasImageUrl));
-    searchAndMark("VIPS", createMarkerImage(vipsImageUrl));
+    searchAndMark("VIPS", createMarkerImage(vipsImageUrl)); 
+} 
+
+    
+ function searchrestaurants3() {
+    /* 외식 -3 2023.12.26 */  
     searchAndMark("제일제면소", createMarkerImage(jaeilImageUrl));
     searchAndMark("더플레이스", createMarkerImage(theplaceImageUrl));
     searchAndMark("더스테이크하우스", createMarkerImage(thestaekhouseImageUrl));
@@ -663,7 +674,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("아웃백 스테이크하우스", createMarkerImage(outbackImageUrl));   
     searchAndMark("플레이팅", createMarkerImage(pletingImageUrl)); 
     searchAndMark("이삭토스트", createMarkerImage(isaacImageUrl));   
-}    
+} 
 
  function searchHomeappliances() {
     /* 생활,가전 2023.08.22 */       
@@ -800,7 +811,9 @@ const categories = [
     { name: '마트/슈퍼', emoji: '마트/슈퍼', action: searchmartandsuper },
     { name: '제과/디저트', emoji: '제과/디저트', action: searchjaegwaanddessert },
     { name: '생활/가전', emoji: '생활/가전', action: searchHomeappliances },
-    { name: '외식', emoji: '외식', action: searchrestaurants },
+    { name: '외식1', emoji: '외식1', action: searchrestaurants1 },
+    { name: '외식2', emoji: '외식2', action: searchrestaurants2 },
+    { name: '외식3', emoji: '외식3', action: searchrestaurants3 },
     { name: '호텔/리조트', emoji: '호텔/리조트', action: searchresortandhotel },
     { name: '주유/충전', emoji: '주유/충전', action: searchgasstation },
     { name: '영화/도서', emoji: '영화/도서', action: searchmovieandbooks },
