@@ -94,13 +94,14 @@
         <button id="close-notice" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px;">&times;</button>
         <ul>
             <h3><b>필독사항</h3></b>
-            <h4><b><font color="999999">Last Update: 12/21/2023 22:58 KST</h4></b></font>
+            <h4><b><font color="999999">Last Update: 12/26/2023 13:19 KST</h4></b></font>
             <li><b>Menu</li></b>
             <li>🏠 집 모양 버튼을 클릭하면, 당신의 현재 위치로 이동합니다.</li>
             <li>🍎 아이폰 사용자는 <a href="https://apps.apple.com/kr/app/%EB%84%A4%EC%9D%B4%EB%B2%84-naver/id393499958">네이버 앱</a>을 사용하세요.</li>
             <li>🍎 아이패드, 맥 사용자는 <a href="https://www.google.com/chrome/">Chrome</a>을 사용하세요.</li>
             <li>⚠️ 동일한 건물 내부에 존재하는 요소들은 같은 장소로 분류될 수도 있습니다.</li>
             <li>⭐ 가맹점 세부정보를 확인하고 싶다면, 마커를 마우스로 우클릭하세요.</li>
+            <li>⭐ 애플페이 가맹점 분류는 <a href="https://www.hyundaicard.com/cpu/ug/CPUUG4001_02.hc?tabindex=1">현대카드 애플페이 문서</a>를 참고했습니다. </li>
         </ul>
     </div>
 
@@ -576,7 +577,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("댄싱컵", createMarkerImage(dancingcupImageUrl));        
   }
 
-  function searchDepartmentStores() {
+  function searchDepartmentStoresandShoppingMalls() {
     // 롯데백화점 2023.08.02
     searchAndMark("롯데백화점", createMarkerImage(lottedepartmentStoreImageUrl));      
     searchAndMark("롯데아울렛", createMarkerImage(lotteoutletImageUrl));
@@ -588,9 +589,6 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("현대백화점면세점", createMarkerImage(hyundaidepartmentStoredutyfreeImageUrl));
     // 갤러리아 2023.12.26 
     searchAndMark("갤러리아", createMarkerImage(galerImageUrl)); 
-}  
-
-  function searchShoppingMalls() {
     // 쇼핑 2023.12.21   
     searchAndMark("AK플라자", createMarkerImage(AKplazaImageUrl));  
     searchAndMark("파르나스몰", createMarkerImage(parnasmallImageUrl));  
@@ -806,14 +804,11 @@ const categories = [
     { name: '문의하기', emoji: '문의하기', action: searchcontact },
     { name: '온라인', emoji: '온라인', action: searchonline },
     { name: '편의점&카페', emoji: '편의점/카페', action: searchConvenienceStoresAndStarbucks },
-    { name: '백화점', emoji: '백화점', action: searchDepartmentStores },
-    { name: '쇼핑', emoji: '쇼핑', action: searchShoppingMalls },
+    { name: '백화점/쇼핑', emoji: '백화점/쇼핑', action: searchDepartmentStoresandShoppingMalls },
     { name: '마트/슈퍼', emoji: '마트/슈퍼', action: searchmartandsuper },
     { name: '제과/디저트', emoji: '제과/디저트', action: searchjaegwaanddessert },
     { name: '생활/가전', emoji: '생활/가전', action: searchHomeappliances },
-    { name: '외식1', emoji: '외식1', action: searchrestaurants1 },
-    { name: '외식2', emoji: '외식2', action: searchrestaurants2 },
-    { name: '외식3', emoji: '외식3', action: searchrestaurants3 },
+    { name: '외식', emoji: '외식1', action: searchrestaurants1 },
     { name: '호텔/리조트', emoji: '호텔/리조트', action: searchresortandhotel },
     { name: '주유/충전', emoji: '주유/충전', action: searchgasstation },
     { name: '영화/도서', emoji: '영화/도서', action: searchmovieandbooks },
