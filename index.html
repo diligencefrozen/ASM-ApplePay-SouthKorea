@@ -62,6 +62,7 @@
             <li>20231105.10: 사용자 인터페이스 개선 ('기타' 메뉴 삭제(약국 삭제), 온라인 메뉴 추가, 문의 메뉴 추가)</li>
             <li>20231201.6: 가맹점 업데이트 (백화점/쇼핑, 마트/슈퍼, 커피, 외식, 온라인)</li>
             <li>20231221.3: 가맹점 업데이트 (외식, 온라인)</li>
+            <li>20231226.2: 가맹점 업데이트 (외식, 백화점/쇼핑)</li>
         </ul>
     </div>
     
@@ -165,7 +166,7 @@
   var atijeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
   var dancingcupImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
     
-  /* 백화점/쇼핑 2023.12.01 */  
+  /* 백화점/쇼핑 2023.12.26 */  
   /* 롯데백화점 2023.08.02 */ 
   var lottedepartmentStoreImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/departmentstore.png?raw=true";    
   var lotteoutletImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";   
@@ -183,6 +184,7 @@
   var innisfreeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
   var jdcImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
   var starfieldImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var galerImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
     
   /* 마트/슈퍼 2023.12.01 */  
   var costcoImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
@@ -211,7 +213,7 @@
   var bizzenImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
   var cookienalImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
     
-  /* 외식 2023.12.21 */  
+  /* 외식 2023.12.26 */  
   var lotteriaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
   var mcdonaldsImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
   var kfcImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
@@ -237,6 +239,7 @@
   var cucharaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
   var outbackImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
   var pletingImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var isaacImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
     
   /* 생활,가전 2023.08.22 */  
   var ikeaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
@@ -586,7 +589,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
 }  
 
   function searchShoppingMalls() {
-    // 쇼핑 2023.12.01   
+    // 쇼핑 2023.12.26   
     searchAndMark("AK플라자", createMarkerImage(AKplazaImageUrl));  
     searchAndMark("파르나스몰", createMarkerImage(parnasmallImageUrl));  
     searchAndMark("아이파크몰", createMarkerImage(iparkmallImageUrl));  
@@ -596,6 +599,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("이니스프리", createMarkerImage(innisfreeImageUrl));      
     searchAndMark("스타필드", createMarkerImage(starfieldImageUrl)); 
     searchAndMark("JDC면세점", createMarkerImage(jdcImageUrl));      
+    searchAndMark("갤러리아", createMarkerImage(galerImageUrl));   
 } 
 
     
@@ -632,7 +636,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
 }      
     
  function searchrestaurants() {
-    /* 외식 2023.12.21 */       
+    /* 외식 2023.12.26 */       
     searchAndMark("롯데리아", createMarkerImage(lotteriaImageUrl));
     searchAndMark("맥도날드", createMarkerImage(mcdonaldsImageUrl));
     searchAndMark("KFC", createMarkerImage(kfcImageUrl));
@@ -658,6 +662,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("쿠차라", createMarkerImage(cucharaImageUrl));
     searchAndMark("아웃백 스테이크하우스", createMarkerImage(outbackImageUrl));   
     searchAndMark("플레이팅", createMarkerImage(pletingImageUrl)); 
+    searchAndMark("이삭토스트", createMarkerImage(isaacImageUrl));   
 }    
 
  function searchHomeappliances() {
