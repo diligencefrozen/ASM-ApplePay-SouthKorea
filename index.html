@@ -62,7 +62,7 @@
             <li>20231105.10: 사용자 인터페이스 개선 ('기타' 메뉴 삭제(약국 삭제), 온라인 메뉴 추가, 문의 메뉴 추가)</li>
             <li>20231201.6: 가맹점 업데이트 (백화점/쇼핑, 마트/슈퍼, 커피, 외식, 온라인)</li>
             <li>20231221.3: 가맹점 업데이트 (외식, 온라인)</li>
-            <li>20231226.4: 가맹점 업데이트 (외식, 백화점/쇼핑) 및 사용자 인터페이스 개선</li>
+            <li>20231226.5: 가맹점 업데이트 (외식, 백화점/쇼핑) 및 사용자 인터페이스 개선</li>
         </ul>
     </div>
     
@@ -634,7 +634,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("쿠키날", createMarkerImage(cookienalImageUrl));
 }      
     
- function searchrestaurants1() {
+ function searchrestaurants() {
     /* 외식 -1 2023.12.26 */       
     searchAndMark("롯데리아", createMarkerImage(lotteriaImageUrl));
     searchAndMark("맥도날드", createMarkerImage(mcdonaldsImageUrl));
@@ -643,12 +643,7 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("라그릴리아", createMarkerImage(lagriliaImageUrl));
     searchAndMark("피그인더가든", createMarkerImage(piginthegardenImageUrl));
     searchAndMark("김가네", createMarkerImage(kimkanaeImageUrl));
-    searchAndMark("봉추찜닭", createMarkerImage(bongchuImageUrl)); 
-}   
-
-    
- function searchrestaurants2() {
-    /* 외식 -2 2023.12.26 */       
+    searchAndMark("봉추찜닭", createMarkerImage(bongchuImageUrl));      
     searchAndMark("스트릿", createMarkerImage(streatImageUrl));
     searchAndMark("퀸즈파크", createMarkerImage(queensparkImageUrl));
     searchAndMark("베라", createMarkerImage(veraImageUrl));
@@ -657,11 +652,6 @@ document.getElementById('search-input').addEventListener('keypress', function (e
     searchAndMark("시티델리", createMarkerImage(citydeliImageUrl));
     searchAndMark("리나스", createMarkerImage(linasImageUrl));
     searchAndMark("VIPS", createMarkerImage(vipsImageUrl)); 
-} 
-
-    
- function searchrestaurants3() {
-    /* 외식 -3 2023.12.26 */  
     searchAndMark("제일제면소", createMarkerImage(jaeilImageUrl));
     searchAndMark("더플레이스", createMarkerImage(theplaceImageUrl));
     searchAndMark("더스테이크하우스", createMarkerImage(thestaekhouseImageUrl));
@@ -808,7 +798,7 @@ const categories = [
     { name: '마트/슈퍼', emoji: '마트/슈퍼', action: searchmartandsuper },
     { name: '제과/디저트', emoji: '제과/디저트', action: searchjaegwaanddessert },
     { name: '생활/가전', emoji: '생활/가전', action: searchHomeappliances },
-    { name: '외식', emoji: '외식1', action: searchrestaurants1 },
+    { name: '외식', emoji: '외식', action: searchrestaurants },
     { name: '호텔/리조트', emoji: '호텔/리조트', action: searchresortandhotel },
     { name: '주유/충전', emoji: '주유/충전', action: searchgasstation },
     { name: '영화/도서', emoji: '영화/도서', action: searchmovieandbooks },
