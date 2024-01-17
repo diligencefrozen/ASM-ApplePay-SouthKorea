@@ -36,10 +36,7 @@ nav ul li {
 
 #map {
     width: 100%;
-    height: 100vh; /* 뷰포트 높이의 100%로 설정 */
-    position: absolute;
-    top: 0;
-    left: 0;
+    height: 400px;
 }
 
 #patch-notes, #notices {
