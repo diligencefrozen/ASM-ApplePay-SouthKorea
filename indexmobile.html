@@ -1,1 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>애플페이 가맹점 찾기 - 모바일</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mobile.css">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d51b1a671a08a16ab1a8b8b139507d1c&libraries=services"></script>
+</head>
+<body>
+    <header>
+        <input type="text" id="search-input" placeholder="장소를 검색하세요.">
+        <button id="search-submit">검색</button>
+    </header>
+    <nav>
+        <ul id="category-list">
+            <!-- 카테고리 항목 추가 -->
+        </ul>
+    </nav>
+    <main>
+        <div id="map"></div>
+        <div id="patch-notes">
+          <ul>
+            <h3><b>패치노트</h3></b>
+            <h4><b><font color="999999">Last Update: 12/26/2023 13:04 KST</h4></b></font>
+            <li>20230524.1: 초기 버전 출시</li>
+            <li>20230718.7: 사용자 인터페이스 업데이트 및 가맹점 추가 (편의점, 카페)</li>
+            <li>20230720.11: 가맹점 추가 (마트/슈퍼) 및 사용자 인터페이스 개선 (검색 기능 추가)</li>
+            <li>20230721.9: 가맹점 추가 (제과/디저트) 및 사용자 인터페이스 개선 (검색 기능 개선 / 마커 기능 추가) </li>
+            <li>20230723.9: 사용자 인터페이스 개선 (검색 기능 디자인 변경 / 모바일 기기로 접속시 반응하는 인터페이스 개선) </li>
+            <li>20230724.1: 사용자 인터페이스 개선 </li>
+            <li>20230726.16: 가맹점 수정 (롯데마트/롯데백화점/롯데슈퍼) </li>
+            <li>20230802.9: 사용자 인터페이스 개선</li>
+            <li>20230803.11: 가맹점 추가(외식/생활,가전) 및 사용자 인터페이스 개선</li>
+            <li>20230804.4: 가맹점 추가(호텔,리조트) 및 사용자 인터페이스 업데이트</li>
+            <li>20230805.8: 사용자 인터페이스 개선</li>
+            <li>20230808.1: 가맹점 추가(주유,충전)</li>
+            <li>20230809.2: 가맹점 추가(영화, 도서) 및 가맹점 수정(편의점)</li>
+            <li>20230811.1: 가맹점 추가(레저, 여행)</li>
+            <li>20230818.5: 가맹점 추가(약국) 및 수정(외식) 그리고 사용자 인터페이스 개선(패치노트, 필독사항 영역)</li>
+            <li>20230821.3: 사용자 인터페이스 개선 (패치노트 영역, 현재 위치 표시 기능 개선)</li>
+            <li>20230822.1: 가맹점 수정 (기타, 생활&가전)</li>
+            <li>20231008.5: 사용자 인터페이스 수정 (카테고리, 필독사항)</li>
+            <li>20231014.1: 사용자 인터페이스 수정 (화면 비율 수정)</li>
+            <li>20231017.2: 사용자 인터페이스 수정 (검색 버튼 수정)</li>
+            <li>20231105.10: 사용자 인터페이스 개선 ('기타' 메뉴 삭제(약국 삭제), 온라인 메뉴 추가, 문의 메뉴 추가)</li>
+            <li>20231201.6: 가맹점 업데이트 (백화점/쇼핑, 마트/슈퍼, 커피, 외식, 온라인)</li>
+            <li>20231221.3: 가맹점 업데이트 (외식, 온라인)</li>
+            <li>20231226.6: 가맹점 업데이트 (외식, 백화점/쇼핑) 및 사용자 인터페이스 개선</li>
+        </ul>
+    </div>
+        </div>
+        <div id="notices">
+          <ul>
+            <h3><b>필독사항</h3></b>
+            <h4><b><font color="999999">Last Update: 12/26/2023 13:35 KST</h4></b></font>
+            <li><b>Menu</li></b>
+            <li>🏠 집 모양 버튼을 클릭하면, 당신의 현재 위치로 이동합니다.</li>
+            <li>🍎 아이폰 사용자는 <a href="https://apps.apple.com/kr/app/%EB%84%A4%EC%9D%B4%EB%B2%84-naver/id393499958">네이버 앱</a>을 사용하세요.</li>
+            <li>🍎 아이패드, 맥 사용자는 <a href="https://www.google.com/chrome/">Chrome</a>을 사용하세요.</li>
+            <li>⚠️ 동일한 건물 내부에 존재하는 요소들은 같은 장소로 분류될 수도 있습니다.</li>
+            <li>⭐ 가맹점 세부정보를 확인하고 싶다면, 마커를 마우스로 좌클릭하세요.</li>
+            <li>⭐ 애플페이 가맹점 분류는 <a href="https://www.hyundaicard.com/cpu/ug/CPUUG4001_02.hc?tabindex=1">현대카드 애플페이 문서</a>를 참고했습니다. </li>
+        </ul>
+    </div>
+        </div>
+    </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var mapContainer = document.getElementById('map');
+            var mapOptions = {
+                center: new kakao.maps.LatLng(37.566, 126.9784),
+                level: 3
+            };
+            var map = new kakao.maps.Map(mapContainer, mapOptions);
+
+            // 검색 기능 구현
+            document.getElementById('search-submit').addEventListener('click', function() {
+                var keyword = document.getElementById('search-input').value;
+                // 여기에 검색 기능 구현 로직 추가
+            });
+
+            // 카테고리 리스트 구현
+            var categories = ['편의점', '카페', '외식', '...'];
+            var categoryList = document.getElementById('category-list');
+            categories.forEach(function(category) {
+                var li = document.createElement('li');
+                li.textContent = category;
+                li.addEventListener('click', function() {
+                    // 여기에 카테고리별 로직 추가
+                });
+                categoryList.appendChild(li);
+            });
+
+            // 패치노트 및 필독사항 영역 토글
+            var patchNotes = document.getElementById('patch-notes');
+            var notices = document.getElementById('notices');
+            window.onscroll = function() {
+                if (window.pageYOffset > 500) {
+                    patchNotes.classList.add('active');
+                    notices.classList.add('active');
+                } else {
+                    patchNotes.classList.remove('active');
+                    notices.classList.remove('active');
+                }
+            };
+        });
+    </script>
+</body>
+</html>
