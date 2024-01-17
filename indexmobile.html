@@ -88,23 +88,42 @@
                 var li = document.createElement('li');
                 li.textContent = category;
                 li.addEventListener('click', function() {
-                    // 여기에 카테고리별 로직 추가
+                    if (category === '편의점/카페') {
+                        // '편의점/카페' 버튼 클릭 시 실행될 로직
+                        searchAndMarkConvenienceAndCafe();
+                    }
+                    // 기타 카테고리에 대한 로직 추가 가능
                 });
                 categoryList.appendChild(li);
             });
-
-            // 패치노트 및 필독사항 영역 토글
-            var patchNotes = document.getElementById('patch-notes');
-            var notices = document.getElementById('notices');
-            window.onscroll = function() {
-                if (window.pageYOffset > 500) {
-                    patchNotes.classList.add('active');
-                    notices.classList.add('active');
-                } else {
-                    patchNotes.classList.remove('active');
-                    notices.classList.remove('active');
+            
+            function searchAndMarkConvenienceAndCafe() {
+                var positions = [
+                    {title: '편의점1', latlng: new kakao.maps.LatLng(37.566, 126.9784)},
+                    {title: '카페1', latlng: new kakao.maps.LatLng(37.567, 126.9794)}
+                    // 기타 위치 데이터 추가
+                    ];
+                
+                for (var i = 0; i < positions.length; i ++) {
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: positions[i].latlng,
+                        title: positions[i].title
+                    });
                 }
-            };
+            }
+        });            
+        var patchNotes = document.getElementById('patch-notes');
+        var notices = document.getElementById('notices');
+        window.onscroll = function() {
+            if (window.pageYOffset > 500) {
+                patchNotes.classList.add('active');
+                notices.classList.add('active');
+            } else {
+                patchNotes.classList.remove('active');
+                notices.classList.remove('active');
+            }
+        };
         });
     </script>
 </body>
