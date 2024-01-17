@@ -17,6 +17,16 @@
     <script type="text/javascript">document.oncontextmenu = function(){return false;}
     
 </script>
+
+    <script type="text/javascript">
+    function redirectMobile() {
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            window.location.href = "indexmobile.html";
+        }
+    }
+
+    redirectMobile();
+</script>
 </head>
 
 <body>
