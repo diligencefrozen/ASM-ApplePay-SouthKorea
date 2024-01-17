@@ -70,7 +70,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var mapContainer = document.getElementById('map');
             var mapOptions = {
-                center: new kakao.maps.LatLng(37.566, 126.9784),
+                center: new kakao.maps.LatLng(37.34487430629196, 127.93071437137233),
                 level: 3
             };
             var map = new kakao.maps.Map(mapContainer, mapOptions);
@@ -82,7 +82,7 @@
             });
 
             // 카테고리 리스트 구현
-            var categories = ['편의점', '카페', '외식', '...'];
+            var categories = ['문의하기','온라인','편의점/카페', '백화점/쇼핑', '마트/슈퍼','제과/디저트','생활/가전','외식','호텔/리조트','주유/충전','영화/도서','레저/여행'];
             var categoryList = document.getElementById('category-list');
             categories.forEach(function(category) {
                 var li = document.createElement('li');
