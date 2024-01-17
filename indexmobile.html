@@ -107,5 +107,56 @@
             };
         });
     </script>
+
+    <script>
+    // 기존 코드 ...
+
+    // 각 카테고리에 따른 마커 표시 함수 정의
+    function searchConvenienceStoresAndStarbucks() {
+        // '편의점&카페' 카테고리에 대한 마커 표시
+        searchAndMark("GS25", createMarkerImage(GS25ImageUrl));
+        searchAndMark("CU", createMarkerImage(CUImageUrl));
+        // ... 기타 편의점 및 카페 마커 추가
+    }
+
+    function searchDepartmentStoresandShoppingMalls() {
+        // '백화점/쇼핑' 카테고리에 대한 마커 표시
+        searchAndMark("롯데백화점", createMarkerImage(lottedepartmentStoreImageUrl));
+        // ... 기타 백화점 및 쇼핑 마커 추가
+    }
+
+    function searchmartandsuper() {
+        // '마트/슈퍼' 카테고리에 대한 마커 표시
+        searchAndMark("코스트코", createMarkerImage(costcoImageUrl));
+        // ... 기타 마트 및 슈퍼 마커 추가
+    }
+
+    // ... 기타 카테고리별 마커 표시 함수 추가
+
+    // 카테고리 버튼 클릭 이벤트에 마커 표시 함수 연결
+    const categories = [
+        { name: '문의하기', emoji: '문의하기', action: searchcontact },
+        { name: '온라인', emoji: '온라인', action: searchonline },
+        { name: '편의점&카페', emoji: '편의점/카페', action: searchConvenienceStoresAndStarbucks },
+        // ... 기타 카테고리
+    ];
+
+    // 카테고리 버튼 생성 및 이벤트 할당
+
+    const categoryContainer = document.createElement('div');
+        categoryContainer.className = 'nav-control-categories';
+        
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.innerHTML = category.emoji;
+            button.title = category.name;
+            button.addEventListener('click', () => setTimeout(category.action, 500));
+            categoryContainer.appendChild(button);
+        });
+        
+        container.parentNode.insertBefore(categoryContainer, container.nextSibling);
+        // ... 나머지 기존 코드
+    </script>
+    
 </body>
 </html>
