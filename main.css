@@ -7,6 +7,17 @@
   top: 0;
   left: 0;
 }
+#apple-pay-notice {
+  position: absolute;
+  right: 10px;     /* 오른쪽 간격 */
+  bottom: 10px;    /* 하단 간격 */
+  background-color: rgba(255, 255, 255, 0.8); /* 반투명한 흰색 배경 */
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #333;     /* 글꼴 색상 */
+  z-index: 100;    /* 지도 위에 표시 */
+}
 html, body {
   height: 100%;
   margin: 0;
