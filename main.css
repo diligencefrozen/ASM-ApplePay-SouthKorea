@@ -6,6 +6,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 1; 
 }
 #apple-pay-notice {
   position: absolute;
@@ -16,7 +17,7 @@
   border-radius: 5px;
   font-size: 12px;
   color: #333;     /* 글꼴 색상 */
-  z-index: 10;    /* 지도 위에 표시 */
+  z-index: 2;    /* 지도 위에 표시 */
 }
 html, body {
   height: 100%;
