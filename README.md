@@ -29,3 +29,28 @@
 ## Feedback and Suggestions
 - Do you have any additions, modifications, or other suggestions for the store information?
 - Please visit the [GitHub Issues](https://github.com/diligencefrozen/applepay-southkorea-map/issues) page to leave your feedback.
+
+## Screnshots
+<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<br/>
+
+<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<br/>
+
+<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<br/>
+
+<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<br/>
+
+<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<br/>
+
+<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<br/>
+
+<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<br/>
+
+<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<br/>
