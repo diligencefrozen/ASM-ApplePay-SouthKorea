@@ -31,26 +31,23 @@
 - Please visit the [GitHub Issues](https://github.com/diligencefrozen/applepay-southkorea-map/issues) page to leave your feedback.
 
 ## Screnshots
-<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss1.PNG?raw=true">
 <br/>
 
-<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss2.PNG?raw=true">
 <br/>
 
-<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss3.PNG?raw=true">
 <br/>
 
-<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss4.PNG?raw=true">
 <br/>
 
-<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss5.PNG?raw=true">
 <br/>
 
-<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss6.PNG?raw=true">
 <br/>
 
-<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
-<br/>
-
-<img src="https://github.com/diligencefrozen/discordbot-main/blob/main/ss/BSM_02.png?raw=true">
+<img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss7.PNG?raw=true">
 <br/>
