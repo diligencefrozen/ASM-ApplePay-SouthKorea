@@ -256,10 +256,10 @@ li {
 
 /* 모바일 기기에 적용할 스타일 */        
 @media screen and (max-width: 768px) {
-#map {
+  #map {
     height: calc(100% - 160px);
-}  
-.nav-control {
+  }  
+  .nav-control {
     position: absolute;
     bottom: 40px;
     right: 20px;
@@ -271,10 +271,11 @@ li {
     transition: background-color 0.3s;
 }
   #search-box {
-    position: absolute;
+    osition: absolute;
     top: 10px;
     right: 40px; 
     z-index: 1;
+    width: 300px; /* 검색창의 가로 길이를 300px로 설정 */
   }
   /*
   .nav-control {
@@ -311,7 +312,7 @@ li {
   }
   */
   #search-input {
-    width: 100%;
+    width: 200px; /* 검색 입력란의 너비를 200px로 설정 */
   }
   /*
   #patch-notes-toggle, #notice-toggle {
