@@ -1,26 +1,5 @@
 /*2023.08.07, index.html과 CSS 소스 코드를 분리시킴.*/
 /* 지도 스크립트 */
-.card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 10px 0;
-    max-width: 250px; /* 카드 크기 제한 */
-    text-align: center; /* 가운데 정렬 */
-}
-
-.card-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.card-content {
-    font-size: 14px;
-    color: #666;
-}
 
 #map {
   width: 100%;
@@ -237,17 +216,60 @@ body {
   z-index: 100;
 }
 
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px 0;
+    max-width: 250px; /* 카드 크기 제한 */
+    text-align: center; /* 가운데 정렬 */
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-content {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 폰트 개선 */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+h3, h4 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
 /* 모바일 기기에 적용할 스타일 */        
 @media screen and (max-width: 768px) {
-  #map {
+#map {
     height: calc(100% - 160px);
-  }  vvvv
-  .nav-control {
+}  
+.nav-control {
     position: absolute;
-    top: 10px; 
-    left: 10px;
-    z-index: 1000;
-  }
+    bottom: 40px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
   #search-box {
     position: absolute;
     top: 10px;
