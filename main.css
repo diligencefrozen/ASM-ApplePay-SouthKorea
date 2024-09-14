@@ -284,6 +284,16 @@ p, li {
     margin-bottom: 8px;
 }
 
+.button24 {
+    background-color: #007bff;
+    color: black; /* 폰트 색상을 검은색으로 변경 */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 
 /* 모바일 기기에 적용할 스타일 */        
 @media screen and (max-width: 768px) {
