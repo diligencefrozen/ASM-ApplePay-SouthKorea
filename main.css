@@ -275,11 +275,11 @@ li {
     top: 10px;
     right: 40px; 
     z-index: 1;
-    width: 300px; /* 검색창의 가로 길이를 300px로 설정 */
-
+    width: 100px; /* 검색창의 가로 길이를 100px로 설정 */
+    height: 30px; /* 세로 길이를 작게 설정 */
     
     display: flex; /* 검색 입력란과 버튼을 한 줄로 정렬 */
-    align-items: center;
+    align-items: center; /* 세로로 가운데 정렬 */
   }
   /*
   .nav-control {
@@ -316,12 +316,14 @@ li {
   }
   */
   #search-input {
-    width: 150px; /* 기본적으로 차지할 너비 */
+    width: 100px; /* 기본적으로 차지할 너비 */
     min-width: 100px; /* 최소 너비 */
     border: none;
     outline: none;
     font-size: 14px;
+    height: 25px; /* 높이를 더 작게 설정 */
     flex-grow: 0; /* 넓게 차지하지 않음 */
+    padding: 4px; /* 입력 필드 안쪽 여백 추가 */
   }
   /*
   #patch-notes-toggle, #notice-toggle {
@@ -339,8 +341,8 @@ li {
     margin-left: 10px; /* 입력란과 버튼 사이 간격 */
   }
   #search-submit img {
-    width: 50px; /* 원하는 너비로 설정 */
-    height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
+    width: 75px; 
+    height: 75px; 
     object-fit: contain; /* 비율을 유지하면서 크기를 조정 */
   }
   /* 업데이트 내역 스타일 */
