@@ -24,8 +24,6 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5; /* 밝은 배경 */
-  color: #333; /* 어두운 텍스트 */
 }
 /* 팝업 디자인 설정 */
 .infoWindow {
@@ -98,9 +96,6 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
-  max-width: 600px;
-  width: 100%;
-  margin: 20px auto;
 }
 #search-input {
   width: 250px;
@@ -119,11 +114,6 @@ body {
   margin-left: 8px;
   margin-top: 5px; /* 아래로 이동 */
 }
-
-#search-submit:hover {
-  background-color: #f0f0f0;
-}
-
 #search-submit img {
   width: 100%;
   height: 100%;
@@ -227,34 +217,25 @@ body {
 }
 
 .card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-/*margin: 10px 0;*/
-  max-width: 250px; /* 카드 크기 제한 */
-  text-align: center; /* 가운데 정렬 */
-  transition: box-shadow 0.3s ease-in-out; /* 그림자에 애니메이션 추가 */
-  max-width: 500px;
-  margin: 20px auto;
-  transition: transform 0.3s ease-in-out;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px 0;
+    max-width: 250px; /* 카드 크기 제한 */
+    text-align: center; /* 가운데 정렬 */
 }
 
 .card-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .card-content {
-  font-size: 14px;
-  color: #666;
-}
-
-.card:hover {
-  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15); /* 호버시 약간 더 진해짐 */
-  transform: translateY(-5px); /* 마우스를 올리면 약간 위로 이동 */
+    font-size: 14px;
+    color: #666;
 }
 
 /* 폰트 개선 */
@@ -264,21 +245,14 @@ body {
     color: #333;
 }
 
-h1, h2, h3 {
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    color: #333;
+h3, h4 {
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
-p, li {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #666;
+li {
     margin-bottom: 8px;
 }
-
 
 /* 모바일 기기에 적용할 스타일 */        
 @media screen and (max-width: 768px) {
