@@ -286,7 +286,7 @@ p, li {
 
 button {
     background-color: #007bff;
-    color: white;
+    color: black;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -296,6 +296,7 @@ button {
 
 button:hover {
     background-color: #0056b3;
+    color: white;
 }
 
 
