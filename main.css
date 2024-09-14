@@ -324,9 +324,8 @@ li {
     align-self: flex-end;
   }
   #search-submit img {
-    width: 75px; 
-    height: 75px; 
-    object-fit: contain; /* 비율을 유지하면서 크기를 조정 */
+    width: 75%; 
+    height: 75%; 
   }
   /* 업데이트 내역 스타일 */
   #patch-notes {
