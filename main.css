@@ -284,21 +284,6 @@ p, li {
     margin-bottom: 8px;
 }
 
-button {
-    background-color: #007bff;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-    color: white;
-}
-
 
 /* 모바일 기기에 적용할 스타일 */        
 @media screen and (max-width: 768px) {
