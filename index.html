@@ -31,144 +31,7 @@
     #apple-pay-notice img {
         margin-right: 10px;
     }
-
-/* 테스트 용 CSS 시작,*/
-    
-#map {
-    width: 100%; /* 지도의 너비를 항상 100%로 유지 */
-    height: 100vh; /* 높이는 화면 전체 높이로 설정 */
-}
-
-@media only screen and (max-width: 768px) {
-    /* 모바일에서 적용될 스타일 */
-    #map {
-        height: 60vh; /* 모바일에서 지도의 높이를 60%로 줄임 */
-    }
-    
-    #search-box {
-        width: 90%;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-    }
-
-    #search-input {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #search-submit {
-        width: 100%;
-    }
-    
-    /* 기존 버튼에 호버 및 클릭 스타일 추가 */
-    button {
-        transition: background-color 0.3s ease;
-    }
-    
-    button:hover {
-        background-color: #f0f0f0; /* 호버 시 배경색 변화 */
-    }
-    
-    button:active {
-        background-color: #ddd; /* 클릭 시 배경색 변화 */
-    }
-
-    /* 검색창 및 버튼 통합 스타일 */
-    #search-box {
-        display: flex;
-        align-items: center;
-        width: 50%; /* 너비 조정 */
-        margin: 10px auto;
-    }
-    
-    #search-input {
-        width: 80%; /* 검색 입력창 너비 */
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px 0 0 4px;
-    }
-    
-    #search-submit {
-        width: 20%;
-        padding: 10px;
-        border: none;
-        background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-        border-radius: 0 4px 4px 0;
-    }
-    
-    #search-submit img {
-        width: 20px;
-        height: 20px;
-    }
-    
-    #search-submit:hover {
-        background-color: #45a049;
-    }
-    
-    /* 모달 팝업 스타일 */
-    #patch-notes-content, #notice-content {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        padding: 20px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 9999;
-        border-radius: 8px;
-        max-width: 90%;
-        max-height: 80vh;
-        overflow-y: auto; /* 내용이 많으면 스크롤 가능 */
-    }
-    
-    #patch-notes-content::backdrop, #notice-content::backdrop {
-        background-color: rgba(0, 0, 0, 0.5); /* 팝업 뒷배경 어둡게 */
-    }
-    
-    /* 폰트 개선 */
-    body {
-        font-family: 'Noto Sans KR', sans-serif;
-        line-height: 1.6;
-        color: #333;
-    }
-    
-    h3, h4 {
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
-    
-    li {
-        margin-bottom: 8px;
-    }
-    
-    /* 강조 텍스트 */
-    strong {
-        color: #4CAF50;
-    }
-    
-    /* 홈 버튼 개선 */
-    .nav-control {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        background-color: #fff;
-        border-radius: 50%;
-        padding: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    
-    .nav-control:hover {
-        background-color: #f0f0f0;
-    }
-
-/* 테스트용 CSS 끝, */
-}
-    
+}    
 </style>
     
 <body>
@@ -195,7 +58,7 @@
         <button id="close-patch-notes" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px;">&times;</button>
         <ul>
             <h3><b>패치노트</h3></b>
-            <h4><b><font color="999999">Last Update: 06/13/2024 23:08 KST</h4></b></font>
+            <h4><b><font color="999999">Last Update: 09/14/2024 19:31 KST</h4></b></font>
             <li>20230524.1: 초기 버전 출시</li>
             <li>20230718.7: 사용자 인터페이스 업데이트 및 가맹점 추가 (편의점, 카페)</li>
             <li>20230720.11: 가맹점 추가 (마트/슈퍼) 및 사용자 인터페이스 개선 (검색 기능 추가)</li>
@@ -223,7 +86,7 @@
             <li>20240125.7: 사용자 인터페이스 개선 (사이트 하단에 애플페이 스티커 관련 안내 문구 추가)</li>
             <li>20240225.2: 가맹점 업데이트 (커피, 외식) </li>
             <li>20240613.3: 가맹점 업데이트 (커피, 백화점, 온라인) </li>
-            <li>20240914.6: 가맹점 업데이트 및 UI 개선 (편의점, 패션, 카페, 외식) </li>
+            <li>20240914.7: 가맹점 업데이트 및 UI 개선 (편의점, 패션, 카페, 외식) </li>
         </ul>
     </div>
     
