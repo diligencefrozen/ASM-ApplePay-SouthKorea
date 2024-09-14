@@ -166,7 +166,6 @@
         background-color: #f0f0f0;
     }
 
-    
 /* 테스트용 CSS 끝, */
 }
     
@@ -224,7 +223,7 @@
             <li>20240125.7: 사용자 인터페이스 개선 (사이트 하단에 애플페이 스티커 관련 안내 문구 추가)</li>
             <li>20240225.2: 가맹점 업데이트 (커피, 외식) </li>
             <li>20240613.3: 가맹점 업데이트 (커피, 백화점, 온라인) </li>
-            <li>20240914.4: 가맹점 업데이트 (편의점, 패션, 카페, 외식) </li>
+            <li>20240914.6: 가맹점 업데이트 및 UI 개선 (편의점, 패션, 카페, 외식) </li>
         </ul>
     </div>
     
@@ -1015,6 +1014,49 @@ const categories = [
     });
     
     container.parentNode.insertBefore(categoryContainer, container.nextSibling);
+    
+    function displayMarker(place, markerImage) {
+        var markerPosition = new kakao.maps.LatLng(place.y, place.x);
+        var markerOptions = {
+            position: markerPosition,
+            image: markerImage,
+        };
+        
+        var marker = new kakao.maps.Marker(markerOptions);
+        
+        marker.setMap(map);
+        
+        // 카드 스타일의 정보창 내용
+        var content = `
+        <div class="card">
+        <div class="card-title">${place.place_name}</div>
+        <div class="card-content">${place.address_name}</div>
+        </div>`;
+        
+        var customOverlay = new kakao.maps.CustomOverlay({
+            position: markerPosition,
+            content: content,
+            xAnchor: 0.5,
+            yAnchor: 1,
+        });
+        
+        kakao.maps.event.addListener(marker, 'mouseover', function() {
+            customOverlay.setMap(map);
+        });
+        
+        kakao.maps.event.addListener(marker, 'mouseout', function() {
+            customOverlay.setMap(null);
+        });
+        
+        kakao.maps.event.addListener(marker, 'click', function() {
+            if (customOverlay.getMap()) {
+                customOverlay.setMap(null);
+            } else {
+                customOverlay.setMap(map);
+            }
+        });
+    }
+
 
 </script>
 
