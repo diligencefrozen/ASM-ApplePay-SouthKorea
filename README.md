@@ -31,6 +31,7 @@
 - Please visit the [GitHub Issues](https://github.com/diligencefrozen/applepay-southkorea-map/issues) page to leave your feedback.
 
 ## Screnshots
+### PC 
 <img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss1.PNG?raw=true">
 <br/>
 
@@ -51,3 +52,5 @@
 
 <img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss7.PNG?raw=true">
 <br/>
+
+### Mobile
