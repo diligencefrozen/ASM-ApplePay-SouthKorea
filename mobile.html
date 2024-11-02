@@ -1,1 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <title>애플페이 가맹점 찾기 - 모바일</title>
+    <link rel="stylesheet" href="mobile.css">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_APP_KEY&libraries=services"></script>
+</head>
+<body>
+    <!-- 지도 영역 -->
+    <div id="map" style="width: 100%; height: 80vh;"></div>
+
+    <!-- 검색 창 -->
+    <div id="search-box">
+        <input type="text" id="search-input" placeholder="장소를 검색하세요.">
+        <button id="search-submit">검색</button>
+    </div>
+
+    <!-- 현재 위치 버튼 -->
+    <div id="current-location">
+        <button id="current-location-btn">내 위치</button>
+    </div>
+
+    <!-- 패치노트 영역 -->
+    <div id="patch-notes">
+        <button id="patch-notes-toggle">패치노트 보기</button>
+        <div id="patch-notes-content">
+            <h3>패치노트</h3>
+            <ul>
+                <li><b>2023.08.11:</b> 레저, 여행 가맹점 추가</li>
+                <li><b>2023.12.26:</b> 백화점, 쇼핑 가맹점 업데이트</li>
+                <li><b>2024.09.14:</b> 외식 및 생활 가맹점 업데이트</li>
+                <!-- 패치노트 항목 추가 가능 -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Kakao 지도 초기화
+        var container = document.getElementById('map');
+        var options = {
+            center: new kakao.maps.LatLng(37.5665, 126.9780), // 서울 중심 좌표 예시
+            level: 3
+        };
+        var map = new kakao.maps.Map(container, options);
+
+        // 검색 기능
+        function searchPlaces() {
+            var keyword = document.getElementById('search-input').value;
+            if (!keyword.trim()) {
+                alert('검색어를 입력해주세요.');
+                return;
+            }
+            var places = new kakao.maps.services.Places();
+            places.keywordSearch(keyword, function(data, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    map.setCenter(new kakao.maps.LatLng(data[0].y, data[0].x));
+                } else {
+                    alert('검색 결과가 없습니다.');
+                }
+            });
+        }
+        document.getElementById('search-submit').addEventListener('click', searchPlaces);
+
+        // 현재 위치 표시
+        document.getElementById('current-location-btn').addEventListener('click', function () {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                var newPos = new kakao.maps.LatLng(lat, lng);
+                map.setCenter(newPos);
+                var marker = new kakao.maps.Marker({ position: newPos });
+                marker.setMap(map);
+            });
+        });
+
+        // 패치노트 보기 토글
+        var patchNotesToggle = document.getElementById('patch-notes-toggle');
+        var patchNotesContent = document.getElementById('patch-notes-content');
+        patchNotesToggle.addEventListener('click', function() {
+            patchNotesContent.classList.toggle('active');
+        });
+    </script>
+
+    <style>
+        /* 모바일 전용 스타일 */
+        #map { margin: 0 auto; }
+        #search-box {
+            display: flex;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+        }
+        #search-input {
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+        }
+        #search-submit {
+            padding: 8px 12px;
+            font-size: 16px;
+        }
+        #current-location {
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            z-index: 10;
+        }
+        #current-location-btn {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        /* 패치노트 스타일 */
+        #patch-notes {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-size: 14px;
+            z-index: 10;
+        }
+        #patch-notes-toggle {
+            padding: 10px;
+            width: 100%;
+            background: #333;
+            color: #fff;
+            font-size: 16px;
+        }
+        #patch-notes-content {
+            display: none;
+            max-height: 200px;
+            overflow-y: scroll;
+            padding: 15px;
+            background: #f7f7f7;
+        }
+        #patch-notes-content.active {
+            display: block;
+        }
+        #patch-notes-content h3 {
+            margin-top: 0;
+        }
+    </style>
+</body>
+</html>
 
