@@ -21,7 +21,21 @@
     <div id="current-location">
         <button id="current-location-btn">내 위치</button>
     </div>
-
+    <!-- 패치노트 영역 -->
+    <div id="notice">
+        <button id="notice-toggle">필독사항 보기</button>
+        <div id="notice-content" class="content">
+            <h3>필독사항</h3>
+            <ul>
+                <li>🏠 집 모양 버튼을 클릭하면 현재 위치로 이동합니다.</li>
+                <li>🍎 아이폰 사용자는 네이버 앱을, 아이패드와 맥 사용자는 Chrome을 이용하세요.</li>
+                <li>⚠️ 같은 건물에 위치한 가맹점은 같은 위치로 표시될 수 있습니다.</li>
+                <li>⭐ 마커를 클릭하면 가맹점 세부정보를 확인할 수 있습니다.</li>
+                <li>⭐ 애플페이 가맹점 분류는 현대카드 문서를 참고했습니다.</li>
+            </ul>
+        </div>
+    </div>
+    
     <!-- 패치노트 영역 -->
     <div id="patch-notes">
         <button id="patch-notes-toggle">패치노트 보기</button>
@@ -56,7 +70,7 @@
                 <li>20240225.2: 가맹점 업데이트 (커피, 외식) </li>
                 <li>20240613.3: 가맹점 업데이트 (커피, 백화점, 온라인) </li>
                 <li>20240914.10: 가맹점 업데이트 및 UI 개선 (편의점, 패션, 카페, 외식) </li>
-                <li>20241102.2: 모바일 기기 대응 페이지 생성 </li>
+                <li>20241102.3: 모바일 기기 대응 페이지 생성 </li>
                 <!-- 패치노트 항목 추가 가능 -->
             </ul>
         </div>
@@ -66,7 +80,7 @@
         // Kakao 지도 초기화
         var container = document.getElementById('map');
         var options = {
-            center: new kakao.maps.LatLng(37.5665, 126.9780), // 서울 중심 좌표 예시
+            center: new kakao.maps.LatLng(37.34487430629196, 127.93071437137233), 
             level: 3
         };
         var map = new kakao.maps.Map(container, options);
@@ -107,6 +121,14 @@
         patchNotesToggle.addEventListener('click', function() {
             patchNotesContent.classList.toggle('active');
         });
+        
+        // 필독사항 보기 토글
+        var noticeToggle = document.getElementById('notice-toggle');
+        var noticeContent = document.getElementById('notice-content');
+        noticeToggle.addEventListener('click', function() {
+            noticeContent.classList.toggle('active');
+        });
+        
     </script>
 
     <style>
@@ -175,6 +197,22 @@
         #patch-notes-content h3 {
             margin-top: 0;
         }
+         /* 스타일 설정 */
+        #notice, #patch-notes {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .content {
+            display: none;
+            padding: 10px;
+            background: #f7f7f7;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+        .content.active {
+            display: block;
+        }
+        
     </style>
 </body>
 </html>
