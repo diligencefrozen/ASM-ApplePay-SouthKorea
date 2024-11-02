@@ -87,12 +87,17 @@
         /* 모바일 전용 스타일 */
         #map { margin: 0 auto; }
         #search-box {
-            display: flex;
-            position: absolute;
-            top: 10px;
+            position: fixed; /* 상단에 고정 */
+            top: 10px; /* 화면 상단에서 10px 떨어짐 */
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
+            z-index: 10; /* 지도 위에 나타나도록 설정 */
+            display: flex;
+            background: rgba(255, 255, 255, 0.9); /* 반투명 배경 */
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         #search-input {
             flex: 1;
