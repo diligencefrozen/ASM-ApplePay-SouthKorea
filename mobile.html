@@ -10,6 +10,14 @@
 <body>
     <!-- 지도 영역 -->
     <div id="map" style="width: 100%; height: 80vh;"></div>
+
+
+    <!-- 광고 배너 영역 -->
+    <div id="ad-banner">
+        <a href="https://example.com" target="_blank">
+            <img src="https://via.placeholder.com/728x90" alt="광고 배너" class="ad-image">
+        </a>
+    </div>
     
     <!-- 검색 창 -->
     <div id="search-box">
@@ -172,9 +180,15 @@
         .content.active {
             display: block;
         }
-
+        /* 광고 배너 스타일 */
+        #ad-banner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            background-color: #f9f9f9;
+        }
         
     </style>
 </body>
 </html>
-
