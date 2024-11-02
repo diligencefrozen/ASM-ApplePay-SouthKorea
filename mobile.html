@@ -24,8 +24,8 @@
     
     <!-- 필독사항 및 패치노트 버튼 영역 -->
     <div id="footer-buttons">
-        <button id="notice-toggle" class="footer-button">필독사항 보기</button>
-        <button id="patch-notes-toggle" class="footer-button">패치노트 보기</button>
+        <button id="notice-toggle" class="emoji-button">📌</button>
+        <button id="patch-notes-toggle" class="emoji-button">📝</button>
     </div>
     
     <!-- 필독사항 및 패치노트 내용 영역 -->
@@ -218,6 +218,24 @@
             margin-top: 5px;
         }
         .content.active {
+            display: block;
+        }
+        /* 필독사항 및 패치노트 내용 스타일 */
+        .footer-content {
+            display: none;
+            position: fixed;
+            bottom: 80px; /* 이모지 버튼 위로 */
+            width: 90%;
+            left: 5%;
+            max-height: 30vh;
+            overflow-y: auto;
+            background: #f7f7f7;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .footer-content.active {
             display: block;
         }
         
