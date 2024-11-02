@@ -16,13 +16,13 @@
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d51b1a671a08a16ab1a8b8b139507d1c&libraries=services"></script>
     <script type="text/javascript">document.oncontextmenu = function(){return false;}
+        
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+        window.location.href = "mobile.html"; // 모바일 전용 HTML 페이지로 리다이렉트
+    }
     
 </script>
 </head>
-
-if (/Mobi|Android/i.test(navigator.userAgent)) {
-    window.location.href = "mobile.html"; // 모바일 전용 HTML 페이지로 리다이렉트
-}
     
 <style>
     #apple-pay-notice {
