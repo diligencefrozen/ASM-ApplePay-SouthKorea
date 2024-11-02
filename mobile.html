@@ -21,8 +21,15 @@
     <div id="current-location">
         <button id="current-location-btn">내 위치</button>
     </div>
-    <!-- 패치노트 영역 -->
-    <div id="notice">
+    
+    <!-- 필독사항 및 패치노트 버튼 영역 -->
+    <div id="footer-buttons">
+        <button id="notice-toggle" class="footer-button">필독사항 보기</button>
+        <button id="patch-notes-toggle" class="footer-button">패치노트 보기</button>
+    </div>
+    
+    <!-- 필독사항 및 패치노트 내용 영역 -->
+    <div id="notice-content" class="footer-content">
         <button id="notice-toggle">필독사항 보기</button>
         <div id="notice-content" class="content">
             <h3>필독사항</h3>
@@ -36,8 +43,7 @@
         </div>
     </div>
     
-    <!-- 패치노트 영역 -->
-    <div id="patch-notes">
+    <div id="patch-notes-content" class="footer-content">
         <button id="patch-notes-toggle">패치노트 보기</button>
         <div id="patch-notes-content">
             <h3>패치노트</h3>
@@ -114,19 +120,21 @@
                 marker.setMap(map);
             });
         });
-
-        // 패치노트 보기 토글
+        
+        // 패치노트와 필독사항 토글 기능
         var patchNotesToggle = document.getElementById('patch-notes-toggle');
         var patchNotesContent = document.getElementById('patch-notes-content');
-        patchNotesToggle.addEventListener('click', function() {
-            patchNotesContent.classList.toggle('active');
-        });
-        
-        // 필독사항 보기 토글
         var noticeToggle = document.getElementById('notice-toggle');
         var noticeContent = document.getElementById('notice-content');
+
+        patchNotesToggle.addEventListener('click', function() {
+            patchNotesContent.classList.toggle('active');
+            noticeContent.classList.remove('active');
+        });
+        
         noticeToggle.addEventListener('click', function() {
             noticeContent.classList.toggle('active');
+            patchNotesContent.classList.remove('active');
         });
         
     </script>
