@@ -42,27 +42,14 @@
         <button id="patch-notes-toggle">📌필독사항</button>
         <div id="patch-notes-content">
             <h3>📌필독사항</h3>
-            <ul style="list-style-type: none; padding: 0; margin: 0;">
-                <li style="margin-bottom: 15px;">
-                    <h4 style="color: #999; margin: 0;">📅 <b>Last Update:</b> <span style="font-weight: normal;">11/02/2024 23:43 KST</span></h4>
-                </li>
-                <li style="margin-bottom: 10px;">
-                    <b>📍 내 위치 버튼</b>: 현재 위치로 지도를 이동합니다.
-                </li>
-                <li style="margin-bottom: 10px;">
-                    <b>🍎 iPhone 사용자는</b>: <a href="https://apps.apple.com/kr/app/%EB%84%A4%EC%9D%B4%EB%B2%84-naver/id393499958" style="color: #007aff; text-decoration: none;">네이버 앱</a>을 사용하세요.
-                </li>
-                <li style="margin-bottom: 10px;">
-                    <b>🍎 iPad 및 Mac 사용자는</b>: <a href="https://www.google.com/chrome/" style="color: #007aff; text-decoration: none;">Chrome</a>을 사용하세요.
-                </li>
-                <li style="margin-bottom: 10px;">
-                    ⚠️ <b>주의</b>: 동일 건물 내의 매장은 <br> 동일 장소로 분류될 수 있습니다.
-                </li>
-                <li style="margin-bottom: 10px;">
-                    ⭐ <b>가맹점 데이터 출처</b>: <a href="https://www.hyundaicard.com/cpu/ug/CPUUG4001_02.hc?tabindex=1" style="color: #007aff; text-decoration: none;">현대카드 애플페이 문서</a>
-                </li>
-            </ul>
-
+            <span style="display: block; margin-bottom: 10px; color: #999; font-weight: bold;">📅 Last Update: 11/02/2024 23:43 KST</span>
+            <span style="display: block; margin-bottom: 10px;"><b>📍 내 위치 버튼:</b> 현재 위치로 지도를 이동합니다.</span>
+            <span style="display: block; margin-bottom: 10px;">🍎 <b>iPhone 사용자는</b> <a href="https://apps.apple.com/kr/app/%EB%84%A4%EC%9D%B4%EB%B2%84-naver/id393499958" style="color: #007aff;">네이버 앱</a>을 사용하세요.</span>
+            <span style="display: block; margin-bottom: 10px;">🍎 <b>iPad 및 Mac 사용자는</b> <a href="https://www.google.com/chrome/" style="color: #007aff;">Chrome</a>을 사용하세요.</span>
+            <span style="display: block; margin-bottom: 10px;">⚠️ <b>주의:</b> 동일 건물 내의 매장은 동일 장소로 분류될 수 있습니다.</span>
+            <span style="display: block; margin-bottom: 10px;">⭐ <b>가맹점 데이터 출처:</b> <a href="https://www.hyundaicard.com/cpu/ug/CPUUG4001_02.hc?tabindex=1" style="color: #007aff;">현대카드 애플페이 문서</a></span>
+        </div>
+    </div>
     
     <!-- 불러오기 기능을 추가합니다. (PC 버전과는 다르게, 공간을 효율적으로 사용하기 위함입니다.) -->    
     <div id="load-categories">
@@ -142,23 +129,18 @@
             const categoriesList = document.getElementById("categories-list");
             
             // 카테고리 버튼 초기화 및 생성
-            categoriesList.innerHTML = ""; // 기존 버튼 초기화
+            categoriesList.innerHTML = "";
             categories.forEach((category) => {
                 const button = document.createElement("button");
                 button.textContent = `${category.emoji} ${category.name}`;
-                button.style.margin = "5px"; // 버튼 사이 간격
-                button.addEventListener("click", category.action); // 클릭 시 해당 액션 실행
+                button.addEventListener("click", category.action);
                 categoriesList.appendChild(button);
             });
             
-            // 토글 방식으로 카테고리 목록 표시
-            if (categoryButtonsContainer.style.display === "none") {
-                categoryButtonsContainer.style.display = "block";
-            } else {
-                categoryButtonsContainer.style.display = "none";
-            }
+            // 카테고리 목록 표시 토글
+            categoryButtonsContainer.style.display =
+                categoryButtonsContainer.style.display === "none" ? "block" : "none";
         });
-
 
         
     </script>
@@ -167,8 +149,11 @@
         /* 모바일 전용 스타일 */
         /*#map { margin: 0 auto; }*/
         #map {
+            /*margin: 0 auto;
+           background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 70%, #f7f7f7 100%);*/
+            width: 100%; /* 전체 폭 */
+            height: 80vh; /* 기본적으로 화면 높이의 80% */
             margin: 0 auto;
-           /*background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 70%, #f7f7f7 100%);*/
         }
         #search-box {
             position: fixed; /* 상단에 고정 */
@@ -262,7 +247,7 @@
             position: fixed;
             bottom: 165px; /* 화면 하단에서 165px 위 */
             right: 20px; /* 화면 우측에서 20px 떨어짐 */
-            z-index: 1000; /* 기본적으로 항상 지도 위에 표시 */
+            z-index: 5; /* 필독사항 아래로 배치 */
             text-align: center;
         }
         
@@ -277,15 +262,6 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
         }
         
-        #category-buttons {
-            display: none; /* 초기에는 숨김 */
-            margin-top: 10px;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);       
-        } 
-        
         #categories-list {
             display: flex;
             flex-wrap: wrap;
@@ -294,29 +270,23 @@
         }
         
         #categories-list button {
-            padding: 10px 15px;
+            padding: 8px 12px;
             font-size: 14px;
             background-color: #f1f1f1;
             border: 1px solid #ccc;
             border-radius: 5px;
             cursor: pointer;
-            margin: 5px;
         }
         
         #categories-list button:hover {
             background-color: #007aff;
             color: white;
         }
-        
-        #patch-notes-content.active ~ #load-categories {
-            z-index: 500; /* 필독사항 활성화 시 버튼이 뒤로 가도록 낮은 값으로 설정 */
+
+        /* 필독사항이 활성화된 경우 #load-categories 버튼 뒤로 가도록 설정 */
+        #patch-notes-content.active + #load-categories {
+            z-index: 1; /* 필독사항이 우선되도록 낮은 z-index 설정 */
         }
-        
-        /* 필독사항이 활성화되었을 때 버튼이 뒤로 가도록 설정 */
-        #patch-notes-content.active {
-            z-index: 2000; /* 필독사항 콘텐츠를 최상위로 설정 */
-        }
-        
 
         
     </style>
