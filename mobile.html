@@ -257,7 +257,7 @@
             position: fixed;
             bottom: 165px; /* 화면 하단에서 165px 위 */
             right: 20px; /* 화면 우측에서 20px 떨어짐 */
-            z-index: 5; /* 필독사항 아래로 배치 */
+            z-index: 1000; /* 기본적으로 항상 지도 위에 표시 */
             text-align: center;
         }
         
@@ -292,11 +292,16 @@
             background-color: #007aff;
             color: white;
         }
-
-        /* 필독사항이 활성화된 경우 #load-categories 버튼 뒤로 가도록 설정 */
-        #patch-notes-content.active + #load-categories {
-            z-index: 1; /* 필독사항이 우선되도록 낮은 z-index 설정 */
+        
+        #patch-notes-content.active ~ #load-categories {
+            z-index: 500; /* 필독사항 활성화 시 버튼이 뒤로 가도록 낮은 값으로 설정 */
         }
+        
+        /* 필독사항이 활성화되었을 때 버튼이 뒤로 가도록 설정 */
+        #patch-notes-content.active {
+            z-index: 2000; /* 필독사항 콘텐츠를 최상위로 설정 */
+        }
+        
 
         
     </style>
