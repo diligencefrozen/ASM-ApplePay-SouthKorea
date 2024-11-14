@@ -244,9 +244,9 @@
         /* 불러오기 기능 스타일 */
         #load-categories {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+            bottom: 80px; /* 필독사항과 겹치지 않게 위로 올림 */
+            left: 20px; /* 좌측으로 배치 */
+            z-index: 1000; /* 지도 위로 표시되도록 설정 */
             text-align: center;
         }
         
@@ -258,6 +258,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
         }
         
         #categories-list {
