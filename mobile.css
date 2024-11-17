@@ -139,3 +139,21 @@
         #patch-notes-content.active + #load-categories {
             z-index: 1; /* 필독사항이 우선되도록 낮은 z-index 설정 */
         }
+
+        #load-stores {
+            display: block; /* 버튼이 기본적으로 보이도록 설정 */
+            text-align: center;
+            margin-top: 20px;
+        }
+  
+       #load-button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+       }
+
