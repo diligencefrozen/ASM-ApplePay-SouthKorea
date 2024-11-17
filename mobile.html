@@ -41,7 +41,7 @@
             <span style="display: block; margin-bottom: 10px;">⚠️ <b>주의:</b> 동일 건물 내의 매장은 동일 장소로 분류될 수 있습니다.</span>
             <span style="display: block; margin-bottom: 10px;">⭐ <b>가맹점 데이터 출처:</b> <a href="https://www.hyundaicard.com/cpu/ug/CPUUG4001_02.hc?tabindex=1" style="color: #007aff;">현대카드 애플페이 문서</a></span>
         </div>
-    </div>    
+    </div>
 
     <!-- 불러오기 버튼 -->
     <div id="load-stores">
@@ -63,7 +63,17 @@
             document.getElementById("search-submit").addEventListener("click", searchPlaces);
             document.getElementById("current-location-btn").addEventListener("click", moveToCurrentLocation);
         });
-
+        
+        document.getElementById("patch-notes-toggle").addEventListener("click", function () {
+            const patchNotesContent = document.getElementById("patch-notes-content");
+            
+            if (patchNotesContent.style.display === "block") {
+                patchNotesContent.style.display = "none";
+            } else {
+                patchNotesContent.style.display = "block";
+            }
+        });
+        
         const stores = [
             { keyword: "GS25", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true" },
             { keyword: "CU", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true" },
