@@ -61,9 +61,11 @@
         #patch-notes-content {
             display: none;
             max-height: 200px;
-            overflow-y: scroll;
+            overflow-y: auto;
             padding: 15px;
             background: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         #patch-notes-content.active {
             display: block;
@@ -141,9 +143,11 @@
         }
 
         #load-stores {
-            display: block; /* 버튼이 기본적으로 보이도록 설정 */
+            position: fixed;
+            bottom: 100px; /* 화면 하단에서 100px 위로 배치 */
+            right: 20px; /* 화면 오른쪽에서 20px 떨어짐 */
+            z-index: 100; /* 다른 요소 위에 표시 */
             text-align: center;
-            margin-top: 20px;
         }
   
        #load-button {
