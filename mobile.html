@@ -54,13 +54,7 @@
     <!-- 불러오기 기능을 추가합니다. (PC 버전과는 다르게, 공간을 효율적으로 사용하기 위함입니다.) -->    
     <div id="load-categories">
         <button id="load-button">🔍 가맹점 불러오기</button>
-        <div id="category-buttons" style="display: none;">
-            <p>불러올 카테고리를 선택하세요:</p>
-            <div id="categories-list"></div>
-        </div>
     </div>
-
-
 
     <script>
         // Kakao 지도 초기화
@@ -142,44 +136,34 @@
                 categoryButtonsContainer.style.display === "none" ? "block" : "none";
         });
         
-        function searchConvenienceStoresAndStarbucks() {
+        function searchAndDisplayKeywords(keywords, markerImageUrl) {
             const placesService = new kakao.maps.services.Places();
-            const keywords = ["GS25", "CU", "스타벅스"]; // 카테고리에 해당하는 키워드
-            
-            keywords.forEach(keyword => {
-                placesService.keywordSearch(keyword, function (data, status) {
-                    if (status === kakao.maps.services.Status.OK) {
-                        data.forEach(place => {
-                            displayMarker(place, "URL_TO_MARKER_IMAGE"); // 마커 이미지를 설정
+            keywords.forEach((keyword, index) => {
+                setTimeout(() => {
+                    placesService.keywordSearch(keyword, function (data, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+                            data.forEach(place => {
+                                displayMarker(place, markerImageUrl);
                             });
                         } else {
                             console.warn(`검색 실패: ${keyword}, 상태: ${status}`);
                         }
                     });
+                }, index * 200); // API 호출 간격 설정
                 });
             }
             
-            function loadAllStores() {
-                const placesService = new kakao.maps.services.Places();
-                const allKeywords = [
-                    "GS25", "CU", "스타벅스", "롯데백화점", "코스트코",
-                    "파리바게뜨", "맥도날드", "이케아", "롯데호텔", "올리브영"
-                ];
-                
-                allKeywords.forEach((keyword, index) => {
-                    setTimeout(() => {
-                        placesService.keywordSearch(keyword, function (data, status) {
-                            if (status === kakao.maps.services.Status.OK) {
-                                data.forEach(place => {
-                                    displayMarker(place, "URL_TO_MARKER_IMAGE");
-                                });
-                            } else {
-                                console.warn(`검색 실패: ${keyword}, 상태: ${status}`);
-                            }
-                        });
-                    }, index * 200); // API 호출 간격을 조정하여 제한 방지
-                });
+            function searchConvenienceStoresAndStarbucks() {
+                const keywords = ["GS25", "CU", "스타벅스"];
+                searchAndDisplayKeywords(keywords, "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true");
             }
+            
+            function loadAllStores() {
+                const keywords = ["GS25", "CU", "스타벅스", "롯데백화점", "코스트코", "파리바게뜨", "맥도날드", "이케아", "롯데호텔", "올리브영"];
+                const defaultMarkerImage = "https://via.placeholder.com/24";
+                searchAndDisplayKeywords(keywords, defaultMarkerImage);
+            }
+
 
             function displayMarker(place, markerImageUrl) {
                 const markerImage = new kakao.maps.MarkerImage(markerImageUrl, new kakao.maps.Size(24, 35));
@@ -191,29 +175,22 @@
             }
 
             function showLoadingMessage(message) {
-                const loadingDiv = document.createElement("div");
-                loadingDiv.id = "loading-message";
+                let loadingDiv = document.getElementById("loading-message");
+                if (!loadingDiv) {
+                    loadingDiv = document.createElement("div");
+                    loadingDiv.id = "loading-message";
+                    document.body.appendChild(loadingDiv);
+                }
                 loadingDiv.innerText = message;
-                loadingDiv.style.position = "fixed";
-                loadingDiv.style.top = "10px";
-                loadingDiv.style.left = "50%";
-                loadingDiv.style.transform = "translateX(-50%)";
-                loadingDiv.style.padding = "10px";
-                loadingDiv.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
-                loadingDiv.style.color = "white";
-                loadingDiv.style.borderRadius = "5px";
-                document.body.appendChild(loadingDiv);
+                loadingDiv.style.display = "block";
             }
             
             function hideLoadingMessage() {
                 const loadingDiv = document.getElementById("loading-message");
-                if (loadingDiv) document.body.removeChild(loadingDiv);
+                if (loadingDiv) {
+                    loadingDiv.style.display = "none";
+                }
             }
-            
-            // 로딩 메시지를 사용하는 예:
-            showLoadingMessage("가맹점을 불러오는 중...");
-            setTimeout(hideLoadingMessage, 2000); // 데이터 로드 완료 시 호출
-
         
     </script>
 
