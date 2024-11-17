@@ -51,6 +51,7 @@
         </div>
     </div>
     
+    
     <!-- 불러오기 기능을 추가합니다. (PC 버전과는 다르게, 공간을 효율적으로 사용하기 위함입니다.) -->    
     <div id="load-categories">
         <button id="load-button">🔍 가맹점 불러오기</button>
@@ -191,6 +192,11 @@
                     loadingDiv.style.display = "none";
                 }
             }
+            
+            patchNotesToggle.addEventListener("click", function () {
+                patchNotesContent.classList.toggle("active");
+            });
+
         
     </script>
 
