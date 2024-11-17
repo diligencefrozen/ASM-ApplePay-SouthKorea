@@ -8,24 +8,16 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d51b1a671a08a16ab1a8b8b139507d1c&libraries=services"></script>
 </head>
 <body>
-    
     <!-- 지도 영역 -->
     <div id="map" style="width: 100%; height: 80vh;"></div>
 
-    <!-- 광고 배너 영역 (테스트용 이미지) -->
+    <!-- 광고 배너 -->
     <div id="ad-banner">
         <a href="https://github.com/diligencefrozen" target="_blank">
-            <img 
-                src="https://via.placeholder.com/728x90" 
-                srcset="https://via.placeholder.com/320x50 320w,
-                        https://via.placeholder.com/468x60 468w,
-                        https://via.placeholder.com/728x90 728w"
-                sizes="(max-width: 600px) 320px, (max-width: 1024px) 468px, 728px"
-                alt="테스트 광고 배너" 
-                class="ad-image">
+            <img src="https://via.placeholder.com/728x90" alt="광고 배너">
         </a>
     </div>
-    
+
     <!-- 검색 창 -->
     <div id="search-box">
         <input type="text" id="search-input" placeholder="장소를 검색하세요.">
@@ -36,7 +28,7 @@
     <div id="current-location">
         <button id="current-location-btn">내 위치</button>
     </div>
-
+    
     <!-- 패치노트 영역이나 모바일 버전에서는 필독사항 영역으로 대체. -->
     <div id="patch-notes">
         <button id="patch-notes-toggle">📌필독사항</button>
@@ -49,87 +41,44 @@
             <span style="display: block; margin-bottom: 10px;">⚠️ <b>주의:</b> 동일 건물 내의 매장은 동일 장소로 분류될 수 있습니다.</span>
             <span style="display: block; margin-bottom: 10px;">⭐ <b>가맹점 데이터 출처:</b> <a href="https://www.hyundaicard.com/cpu/ug/CPUUG4001_02.hc?tabindex=1" style="color: #007aff;">현대카드 애플페이 문서</a></span>
         </div>
-    </div>
-    
-    <!-- 불러오기 기능을 추가합니다. (PC 버전과는 다르게, 공간을 효율적으로 사용하기 위함입니다.) -->    
-    <div id="load-categories">
+    </div>    
+
+    <!-- 불러오기 버튼 -->
+    <div id="load-stores">
         <button id="load-button">🔍 가맹점 불러오기</button>
-        <div id="category-buttons" style="display: none;">
-            <p>불러올 카테고리를 선택하세요:</p>
-            <div id="categories-list"></div>
-        </div>
     </div>
-
-
 
     <script>
-        // Kakao 지도 초기화
-        var container = document.getElementById('map');
-        var options = {
-            center: new kakao.maps.LatLng(37.34487430629196, 127.93071437137233), 
-            level: 3
-        };
-        var map = new kakao.maps.Map(container, options);
+        let map;
 
-        // 검색 기능
-        function searchPlaces() {
-            var keyword = document.getElementById('search-input').value;
-            if (!keyword.trim()) {
-                alert('검색어를 입력해주세요.');
-                return;
-            }
-            var places = new kakao.maps.services.Places();
-            places.keywordSearch(keyword, function(data, status) {
-                if (status === kakao.maps.services.Status.OK) {
-                    map.setCenter(new kakao.maps.LatLng(data[0].y, data[0].x));
-                } else {
-                    alert('검색 결과가 없습니다.');
-                }
-            });
-        }
-        document.getElementById('search-submit').addEventListener('click', searchPlaces);
+        document.addEventListener("DOMContentLoaded", function () {
+            const container = document.getElementById('map');
+            const options = {
+                center: new kakao.maps.LatLng(37.34487430629196, 127.93071437137233),
+                level: 3,
+            };
+            map = new kakao.maps.Map(container, options);
 
-        // 현재 위치 표시
-        document.getElementById('current-location-btn').addEventListener('click', function () {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var lat = position.coords.latitude;
-                var lng = position.coords.longitude;
-                var newPos = new kakao.maps.LatLng(lat, lng);
-                map.setCenter(newPos);
-                var marker = new kakao.maps.Marker({ position: newPos });
-                marker.setMap(map);
-            });
+            document.getElementById("load-button").addEventListener("click", loadAllStoresAsync);
+            document.getElementById("search-submit").addEventListener("click", searchPlaces);
+            document.getElementById("current-location-btn").addEventListener("click", moveToCurrentLocation);
         });
 
-        // 패치노트 보기 토글이나 모바일 버전에서는 필독사항 보기 토글로 대체.
-        var patchNotesToggle = document.getElementById('patch-notes-toggle');
-        var patchNotesContent = document.getElementById('patch-notes-content');
-        patchNotesToggle.addEventListener('click', function() {
-            patchNotesContent.classList.toggle('active');
-        });
-        
-        // 가맹점 데이터 통합
         const stores = [
             { keyword: "GS25", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true" },
             { keyword: "CU", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true" },
             { keyword: "스타벅스", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true" },
             { keyword: "롯데백화점", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/departmentstore.png?raw=true" },
             { keyword: "코스트코", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true" },
-            { keyword: "파리바게뜨", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true" },
-            { keyword: "맥도날드", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true" },
-            { keyword: "이케아", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true" },
-            { keyword: "롯데호텔", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true" },
-            { keyword: "올리브영", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/fasion.png?raw=true" },
-            { keyword: "GS칼텍스", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/gasstation.png?raw=true" },
         ];
-        
-        // 마커 이미지 생성 함수
-        function createMarkerImage(markerImageUrl) {
-            return new kakao.maps.MarkerImage(markerImageUrl, new kakao.maps.Size(24, 35));
+
+        function createMarkerImage(url) {
+            return new kakao.maps.MarkerImage(url, new kakao.maps.Size(24, 35));
         }
-        
-        // 마커 표시 함수
+
         function displayMarker(place, markerImage) {
+            if (!place || !place.y || !place.x) return;
+
             const marker = new kakao.maps.Marker({
                 position: new kakao.maps.LatLng(place.y, place.x),
                 image: markerImage,
@@ -137,169 +86,114 @@
             marker.setMap(map);
         }
         
-        // 모든 가맹점 불러오기
-        function loadAllStores() {
-            const placesService = new kakao.maps.services.Places();
+        async function loadAllStoresAsync() {
+            const loadingIndicator = document.createElement("div");
+            loadingIndicator.innerText = "가맹점을 불러오는 중...";
+            loadingIndicator.style.position = "absolute";
+            loadingIndicator.style.top = "10px";
+            loadingIndicator.style.left = "50%";
+            loadingIndicator.style.transform = "translateX(-50%)";
+            loadingIndicator.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+            loadingIndicator.style.padding = "10px";
+            loadingIndicator.style.borderRadius = "8px";
+            document.body.appendChild(loadingIndicator);
             
-            stores.forEach(store => {
-                placesService.keywordSearch(store.keyword, function(data, status) {
-                    if (status === kakao.maps.services.Status.OK) {
-                        data.forEach(place => {
-                            displayMarker(place, createMarkerImage(store.imageUrl));
+            try {
+                const placesService = new kakao.maps.services.Places();
+                
+                for (const store of stores) {
+                    await new Promise(resolve => {
+                        placesService.keywordSearch(store.keyword, function (data, status) {
+                            if (status === kakao.maps.services.Status.OK) {
+                                data.forEach(place => {
+                                    displayMarker(place, createMarkerImage(store.imageUrl));
+                                });
+                            } else {
+                                console.warn(`검색 실패: ${store.keyword}, 상태: ${status}`);
+                            }
+                            resolve();
                         });
+                    });
+                    await new Promise(resolve => setTimeout(resolve, 200)); // 대기 시간
+                }
+            } finally {
+                document.body.removeChild(loadingIndicator);
+            }
+        }
+
+        
+        function moveToCurrentLocation() {
+            if (!navigator.geolocation) {
+                alert("GPS를 지원하지 않는 브라우저입니다.");
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const newPosition = new kakao.maps.LatLng(lat, lng);
+                    
+                    map.setCenter(newPosition);
+                    const marker = new kakao.maps.Marker({ position: newPosition });
+                    marker.setMap(map);
+                },
+                
+                function (error) {
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            alert("위치 정보 접근이 거부되었습니다.");
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            alert("위치 정보를 사용할 수 없습니다.");
+                            break;
+                        case error.TIMEOUT:
+                            alert("위치 요청 시간이 초과되었습니다.");
+                            break;
+                        default:
+                            alert("알 수 없는 오류가 발생했습니다.");
                     }
-                });
+                }
+            );
+        }
+
+
+
+        function searchPlaces() {
+            const keyword = document.getElementById("search-input").value.trim();
+            if (!keyword) {
+                alert("검색어를 입력해주세요.");
+                return;
+            }
+
+            const placesService = new kakao.maps.services.Places();
+            placesService.keywordSearch(keyword, function (data, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    map.setCenter(new kakao.maps.LatLng(data[0].y, data[0].x));
+                } else {
+                    alert("검색 결과가 없습니다.");
+                }
             });
         }
-        
-        document.getElementById("load-button").addEventListener("click", loadAllStores);
-    
+
+        function moveToCurrentLocation() {
+            if (!navigator.geolocation) {
+                alert("GPS를 지원하지 않는 브라우저입니다.");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                const newPosition = new kakao.maps.LatLng(lat, lng);
+
+                map.setCenter(newPosition);
+                const marker = new kakao.maps.Marker({ position: newPosition });
+                marker.setMap(map);
+            }, function () {
+                alert("위치를 가져오는데 실패했습니다.");
+            });
+        }
     </script>
-
-    <style>
-        /* 모바일 전용 스타일 */
-        /*#map { margin: 0 auto; }*/
-        #map {
-            /*margin: 0 auto;
-           background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 70%, #f7f7f7 100%);*/
-            width: 100%; /* 전체 폭 */
-            height: 80vh; /* 기본적으로 화면 높이의 80% */
-            margin: 0 auto;
-        }
-        #search-box {
-            position: fixed; /* 상단에 고정 */
-            top: 10px; /* 화면 상단에서 10px 떨어짐 */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            z-index: 10; /* 지도 위에 나타나도록 설정 */
-            display: flex;
-            background: rgba(255, 255, 255, 0.9); /* 반투명 배경 */
-            padding: 5px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        #search-input {
-            flex: 1;
-            padding: 8px;
-            font-size: 16px;
-        }
-        #search-submit {
-            padding: 8px 12px;
-            font-size: 16px;
-        }
-        #current-location {
-            position: absolute;
-            top: 60px;
-            right: 10px;
-            z-index: 10;
-        }
-        #current-location-btn {
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        /* 패치노트 스타일에 대응하는 CSS 이나 
-        모바일 버전에서는 필독사항 스타일에 대응하는 용도로 대체함. */
-        #patch-notes {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            font-size: 14px;
-            z-index: 10;
-        }
-        #patch-notes-toggle {
-            padding: 10px;
-            width: 100%;
-            background: #333;
-            color: #fff;
-            font-size: 16px;
-        }
-        #patch-notes-content {
-            display: none;
-            max-height: 200px;
-            overflow-y: scroll;
-            padding: 15px;
-            background: #f7f7f7;
-        }
-        #patch-notes-content.active {
-            display: block;
-        }
-        #patch-notes-content h3 {
-            margin-top: 0;
-        }
-         /* 스타일 설정 */
-        #notice, #patch-notes {
-            margin-top: 10px;
-            text-align: center;
-        }
-        .content {
-            display: none;
-            padding: 10px;
-            background: #f7f7f7;
-            border: 1px solid #ccc;
-            margin-top: 5px;
-        }
-        .content.active {
-            display: block;
-        }
-        /* 광고 배너 스타일 */
-        #ad-banner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px 0;
-            background-color: #f9f9f9;
-        }
-        /* 불러오기 기능 스타일 */
-        #load-categories {
-            position: fixed;
-            bottom: 165px; /* 화면 하단에서 165px 위 */
-            right: 20px; /* 화면 우측에서 20px 떨어짐 */
-            z-index: 5; /* 필독사항 아래로 배치 */
-            text-align: center;
-        }
-        
-        #load-button {
-            padding: 10px 15px;
-            font-size: 16px;
-            background-color: #007aff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
-        }
-        
-        #categories-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-top: 10px;
-        }
-        
-        #categories-list button {
-            padding: 8px 12px;
-            font-size: 14px;
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        #categories-list button:hover {
-            background-color: #007aff;
-            color: white;
-        }
-
-        /* 필독사항이 활성화된 경우 #load-categories 버튼 뒤로 가도록 설정 */
-        #patch-notes-content.active + #load-categories {
-            z-index: 1; /* 필독사항이 우선되도록 낮은 z-index 설정 */
-        }
-
-        
-    </style>
 </body>
 </html>
