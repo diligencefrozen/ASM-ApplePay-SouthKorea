@@ -141,6 +141,78 @@
             categoryButtonsContainer.style.display =
                 categoryButtonsContainer.style.display === "none" ? "block" : "none";
         });
+        
+        function searchConvenienceStoresAndStarbucks() {
+            const placesService = new kakao.maps.services.Places();
+            const keywords = ["GS25", "CU", "스타벅스"]; // 카테고리에 해당하는 키워드
+            
+            keywords.forEach(keyword => {
+                placesService.keywordSearch(keyword, function (data, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        data.forEach(place => {
+                            displayMarker(place, "URL_TO_MARKER_IMAGE"); // 마커 이미지를 설정
+                            });
+                        } else {
+                            console.warn(`검색 실패: ${keyword}, 상태: ${status}`);
+                        }
+                    });
+                });
+            }
+            
+            function loadAllStores() {
+                const placesService = new kakao.maps.services.Places();
+                const allKeywords = [
+                    "GS25", "CU", "스타벅스", "롯데백화점", "코스트코",
+                    "파리바게뜨", "맥도날드", "이케아", "롯데호텔", "올리브영"
+                ];
+                
+                allKeywords.forEach((keyword, index) => {
+                    setTimeout(() => {
+                        placesService.keywordSearch(keyword, function (data, status) {
+                            if (status === kakao.maps.services.Status.OK) {
+                                data.forEach(place => {
+                                    displayMarker(place, "URL_TO_MARKER_IMAGE");
+                                });
+                            } else {
+                                console.warn(`검색 실패: ${keyword}, 상태: ${status}`);
+                            }
+                        });
+                    }, index * 200); // API 호출 간격을 조정하여 제한 방지
+                });
+            }
+
+            function displayMarker(place, markerImageUrl) {
+                const markerImage = new kakao.maps.MarkerImage(markerImageUrl, new kakao.maps.Size(24, 35));
+                const marker = new kakao.maps.Marker({
+                    position: new kakao.maps.LatLng(place.y, place.x),
+                    image: markerImage,
+                });
+                marker.setMap(map);
+            }
+
+            function showLoadingMessage(message) {
+                const loadingDiv = document.createElement("div");
+                loadingDiv.id = "loading-message";
+                loadingDiv.innerText = message;
+                loadingDiv.style.position = "fixed";
+                loadingDiv.style.top = "10px";
+                loadingDiv.style.left = "50%";
+                loadingDiv.style.transform = "translateX(-50%)";
+                loadingDiv.style.padding = "10px";
+                loadingDiv.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+                loadingDiv.style.color = "white";
+                loadingDiv.style.borderRadius = "5px";
+                document.body.appendChild(loadingDiv);
+            }
+            
+            function hideLoadingMessage() {
+                const loadingDiv = document.getElementById("loading-message");
+                if (loadingDiv) document.body.removeChild(loadingDiv);
+            }
+            
+            // 로딩 메시지를 사용하는 예:
+            showLoadingMessage("가맹점을 불러오는 중...");
+            setTimeout(hideLoadingMessage, 2000); // 데이터 로드 완료 시 호출
 
         
     </script>
