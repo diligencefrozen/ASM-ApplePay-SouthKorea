@@ -107,42 +107,53 @@
         patchNotesToggle.addEventListener('click', function() {
             patchNotesContent.classList.toggle('active');
         });
-
-        // 카테고리 목록 정의
-        const categories = [
-            { name: "편의점&카페", emoji: "☕", action: searchConvenienceStoresAndStarbucks },
-            { name: "백화점/쇼핑", emoji: "🛍️", action: searchDepartmentStoresandShoppingMalls },
-            { name: "마트/슈퍼", emoji: "🏬", action: searchmartandsuper },
-            { name: "제과/디저트", emoji: "🍰", action: searchjaegwaanddessert },
-            { name: "생활/가전", emoji: "🏠", action: searchHomeappliances },
-            { name: "외식", emoji: "🍴", action: searchrestaurants },
-            { name: "호텔/리조트", emoji: "🏨", action: searchresortandhotel },
-            { name: "패션/뷰티", emoji: "💄", action: searchfasion },
-            { name: "주유/충전", emoji: "⛽", action: searchgasstation },
-            { name: "영화/도서", emoji: "📚", action: searchmovieandbooks },
-            { name: "레저/여행", emoji: "🏞️", action: searchleisure },
+        
+        // 가맹점 데이터 통합
+        const stores = [
+            { keyword: "GS25", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true" },
+            { keyword: "CU", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true" },
+            { keyword: "스타벅스", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true" },
+            { keyword: "롯데백화점", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/departmentstore.png?raw=true" },
+            { keyword: "코스트코", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true" },
+            { keyword: "파리바게뜨", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true" },
+            { keyword: "맥도날드", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true" },
+            { keyword: "이케아", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true" },
+            { keyword: "롯데호텔", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true" },
+            { keyword: "올리브영", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/fasion.png?raw=true" },
+            { keyword: "GS칼텍스", imageUrl: "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/gasstation.png?raw=true" },
         ];
         
-        // 불러오기 버튼 동작
-        document.getElementById("load-button").addEventListener("click", function () {
-            const categoryButtonsContainer = document.getElementById("category-buttons");
-            const categoriesList = document.getElementById("categories-list");
-            
-            // 카테고리 버튼 초기화 및 생성
-            categoriesList.innerHTML = "";
-            categories.forEach((category) => {
-                const button = document.createElement("button");
-                button.textContent = `${category.emoji} ${category.name}`;
-                button.addEventListener("click", category.action);
-                categoriesList.appendChild(button);
-            });
-            
-            // 카테고리 목록 표시 토글
-            categoryButtonsContainer.style.display =
-                categoryButtonsContainer.style.display === "none" ? "block" : "none";
-        });
-
+        // 마커 이미지 생성 함수
+        function createMarkerImage(markerImageUrl) {
+            return new kakao.maps.MarkerImage(markerImageUrl, new kakao.maps.Size(24, 35));
+        }
         
+        // 마커 표시 함수
+        function displayMarker(place, markerImage) {
+            const marker = new kakao.maps.Marker({
+                position: new kakao.maps.LatLng(place.y, place.x),
+                image: markerImage,
+            });
+            marker.setMap(map);
+        }
+        
+        // 모든 가맹점 불러오기
+        function loadAllStores() {
+            const placesService = new kakao.maps.services.Places();
+            
+            stores.forEach(store => {
+                placesService.keywordSearch(store.keyword, function(data, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        data.forEach(place => {
+                            displayMarker(place, createMarkerImage(store.imageUrl));
+                        });
+                    }
+                });
+            });
+        }
+        
+        document.getElementById("load-button").addEventListener("click", loadAllStores);
+    
     </script>
 
     <style>
