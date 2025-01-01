@@ -425,4 +425,7 @@ li {
     position: absolute;
     z-index: 100;
   }
+  #patch-notes, #notice {
+    display: none;
+  }
 }
