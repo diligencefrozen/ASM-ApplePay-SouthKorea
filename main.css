@@ -426,6 +426,6 @@ li {
     z-index: 100;
   }
   #patch-notes, #notice {
-    display: none;
+    display: none !important;
   }
 }
