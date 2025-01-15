@@ -50,10 +50,10 @@
 <img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss6.PNG?raw=true">
 <br/>
 
-<img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss8.PNG?raw=true">
-<br/>
-
 <img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss7.PNG?raw=true">
 <br/>
 
 ### Mobile
+
+<img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/ss/ss8.PNG?raw=true" alt="Apple Pay South Korea Map" width="300" />
+<br/>
