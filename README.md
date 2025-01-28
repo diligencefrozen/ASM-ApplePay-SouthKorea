@@ -18,7 +18,7 @@
    
 ## Feedback & Suggestions
 - Want to add or update a store, or share other ideas?
-- Head over to our [GitHub Issues](https://github.com/diligencefrozen/applepay-southkorea-map/issues) page and let me know!
+- Head over to our [GitHub Issues](https://github.com/diligencefrozen/ASM-ApplePay-SouthKorea/issues/) page and let me know!
 
 ## Screnshots
 ### PC 
