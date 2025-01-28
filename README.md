@@ -1,4 +1,4 @@
-# ApplePay Maps
+# ASM -Applepay South Korea Map
 **Explore stores in South Korea that accept Apple Pay—right from your web browser.**
 
 ## Purpose
