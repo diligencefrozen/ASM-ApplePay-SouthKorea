@@ -6,7 +6,7 @@
 - **Accessibility**: Quickly locate Apple Pay supported stores from anywhere, at any time.
 - **Accurate Information**: Store information is regularly updated to ensure it's always current.
   
-## Why Use ApplePay Maps
+## Why Use ASM(Applepay South Korea Map)?
 1. Convenience: No extra app needed. Quickly find Apple Pay–supported shops.
 2. Accessibility: Locate participating stores anytime, anywhere.
 3. Accuracy: Store details are frequently updated so you get the most current info.
