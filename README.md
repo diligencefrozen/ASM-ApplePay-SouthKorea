@@ -1,19 +1,24 @@
 # ApplePay Maps
-**Check out the stores that support Apple Pay in South Korea directly through your web browser.**
+**Explore stores in South Korea that accept Apple Pay—right from your web browser.**
 
 ## Purpose
 - **Convenience**: No need to install a separate app to find stores that support Apple Pay.
 - **Accessibility**: Quickly locate Apple Pay supported stores from anywhere, at any time.
 - **Accurate Information**: Store information is regularly updated to ensure it's always current.
   
-## How to Use the Map
-1. Use your browser to access the website.
-2. Click on your desired category (convenience store, cafe, etc.) within the map.
-3. Click on the markers on the map to view store information.
+## Why Use ApplePay Maps
+1. Convenience: No extra app needed. Quickly find Apple Pay–supported shops.
+2. Accessibility: Locate participating stores anytime, anywhere.
+3. Accuracy: Store details are frequently updated so you get the most current info.
 
-## Feedback and Suggestions
-- Do you have any additions, modifications, or other suggestions for the store information?
-- Please visit the [GitHub Issues](https://github.com/diligencefrozen/applepay-southkorea-map/issues) page to leave your feedback.
+## How to Use the Map
+1. Open the site in your browser.
+2. Pick a category (convenience stores, cafes, etc.) from the map.
+3. Click a marker to see store details.
+   
+## Feedback & Suggestions
+- Want to add or update a store, or share other ideas?
+- Head over to our [GitHub Issues](https://github.com/diligencefrozen/applepay-southkorea-map/issues) page and let me know!
 
 ## Screnshots
 ### PC 
