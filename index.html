@@ -63,10 +63,10 @@
     <img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/applepay.png?raw=true" width="30" height="15"> 스티커를 꼭 확인하세요!
 </div>
         
-<!-- 업데이트 내역 영역 -->
-<div id="patch-notes" class="is-active">
+<!-- 패치노트와 필독사항 내역 영역 -->
+<div class="toggle‐wrapper">
     <button id="patch-notes-toggle" data-i18n="patchNotesToggle">패치노트</button>
-    <div id="patch-notes-content" style="display: none; position: fixed; top: 10%; left: 20%; right: 20%; background-color: white; border: 1px solid gray; padding: 20px; z-index: 9999;">
+        <div id="patch-notes-content" style="display: none; position: fixed; top: 10%; left: 20%; right: 20%; background-color: white; border: 1px solid gray; padding: 20px; z-index: 9999;">
         <button id="close-patch-notes" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px;">&times;</button>
         <ul>
             <h3><b>패치노트</h3></b>
@@ -100,9 +100,27 @@
             <li>20240613.3: 가맹점 업데이트 (커피, 백화점, 온라인) </li>
             <li>20240914.10: 가맹점 업데이트 및 UI 개선 (편의점, 패션, 카페, 외식) </li>
             <li>20250101.5: 가맹점 업데이트 (생활/가전, 커피, 제과/디저트, 온라인) </li>
-            <li>20250517.8: 기능 개선 (영어 지원) </li>
+            <li>20250517.10: 기능 개선 (영어 지원) </li>
         </ul>
     </div>
+    <button id="notice-toggle" data-i18n="noticeToggle">필독사항</button>
+        <div id="notice-content" style="display: none; position: fixed; top: 10%; left: 20%; right: 20%; background-color: white; border: 1px solid gray; padding: 20px; z-index: 9999;">
+        <button id="close-notice" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px;">&times;</button>
+        <ul>
+            <h3><b>필독사항</h3></b>
+            <h4><b><font color="999999">Last Update: 12/26/2023 13:35 KST</h4></b></font>
+            <li><b>Menu</li></b>
+            <li>🏠 집 모양 버튼을 클릭하면, 당신의 현재 위치로 이동합니다.</li>
+            <li>🍎 아이폰 사용자는 <a href="https://apps.apple.com/kr/app/%EB%84%A4%EC%9D%B4%EB%B2%84-naver/id393499958">네이버 앱</a>을 사용하세요.</li>
+            <li>🍎 아이패드, 맥 사용자는 <a href="https://www.google.com/chrome/">Chrome</a>을 사용하세요.</li>
+            <li>⚠️ 동일한 건물 내부에 존재하는 요소들은 같은 장소로 분류될 수도 있습니다.</li>
+            <li>⭐ 가맹점 세부정보를 확인하고 싶다면, 마커를 마우스로 좌클릭하세요.</li>
+            <li>⭐ 애플페이 가맹점 분류는 <a href="https://www.hyundaicard.com/cpu/ug/CPUUG4001_02.hc?tabindex=1">현대카드 애플페이 문서</a>를 참고했습니다. </li>
+        </ul>
+    </div>
+</div>
+    
+
     
 <script>
 
@@ -123,24 +141,6 @@
         patchNotesToggle.style.display = 'block';
     });
 </script>
-
-<!-- 필독사항 영역 -->
-<div id="notice" class="is-active">
-    <button id="notice-toggle" data-i18n="noticeToggle">필독사항</button>
-    <div id="notice-content" style="display: none; position: fixed; top: 10%; left: 20%; right: 20%; background-color: white; border: 1px solid gray; padding: 20px; z-index: 9999;">
-        <button id="close-notice" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px;">&times;</button>
-        <ul>
-            <h3><b>필독사항</h3></b>
-            <h4><b><font color="999999">Last Update: 12/26/2023 13:35 KST</h4></b></font>
-            <li><b>Menu</li></b>
-            <li>🏠 집 모양 버튼을 클릭하면, 당신의 현재 위치로 이동합니다.</li>
-            <li>🍎 아이폰 사용자는 <a href="https://apps.apple.com/kr/app/%EB%84%A4%EC%9D%B4%EB%B2%84-naver/id393499958">네이버 앱</a>을 사용하세요.</li>
-            <li>🍎 아이패드, 맥 사용자는 <a href="https://www.google.com/chrome/">Chrome</a>을 사용하세요.</li>
-            <li>⚠️ 동일한 건물 내부에 존재하는 요소들은 같은 장소로 분류될 수도 있습니다.</li>
-            <li>⭐ 가맹점 세부정보를 확인하고 싶다면, 마커를 마우스로 좌클릭하세요.</li>
-            <li>⭐ 애플페이 가맹점 분류는 <a href="https://www.hyundaicard.com/cpu/ug/CPUUG4001_02.hc?tabindex=1">현대카드 애플페이 문서</a>를 참고했습니다. </li>
-        </ul>
-    </div>
 
 <script>
     const noticeToggle = document.getElementById('notice-toggle');
