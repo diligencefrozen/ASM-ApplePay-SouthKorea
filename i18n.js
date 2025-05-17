@@ -19,6 +19,9 @@ const I18N = {
 
 function applyI18n() {
   // en-*, en 은 모두 영어로 처리
+  // 쿼리 파라미터에 lang=en 이 있으면 강제 사용
+  const params = new URLSearchParams(location.search);
+  const forced = params.get('lang');
   const lang = navigator.language.toLowerCase().startsWith("en") ? "en" : "ko";
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.dataset.i18n;
