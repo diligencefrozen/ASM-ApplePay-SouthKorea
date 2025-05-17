@@ -130,10 +130,7 @@ body {
   transform: translateY(100%);
   transition: transform 0.5s;
 }
-/*────────────────────────────────────────────────
-  1) 기존 #patch-notes / #notice wrappers 안에서
-     버튼을 꺼내거나, CSS로 position 고정하기
-────────────────────────────────────────────────*/
+
 #patch-notes-toggle,
 #notice-toggle {
   position: fixed;     /* viewport 기준 */
@@ -146,8 +143,6 @@ body {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  /* transform 없애기! 부모의 translateY(-100%) 에서 자유로워짐 */
-  transform: none !important;
 }
 
 /* 왼쪽에는 패치노트, 오른쪽에는 필독사항 */
@@ -157,19 +152,6 @@ body {
 
 #notice-toggle {
   right: 20px;
-}
-
-/*────────────────────────────────────────────────
-  2) #patch-notes, #notice wrapper 는 
-     오로지 내용(pane) 토글용으로만 사용
-────────────────────────────────────────────────*/
-/* wrapper 자체를 translateY 로 숨기지 말고, 
-   content 에서만 .is-active 를 토글하세요 */
-#patch-notes {
-  display: none;  /* 이제 이건 필요 없습니다 */
-}
-#notice {
-  display: none;
 }
 
 /* 실제 팝업 콘텐츠(#*-content)만 .is-active 에 따라 나타나게 */
