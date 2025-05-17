@@ -17,16 +17,16 @@ const I18N = {
 };
 
 function applyI18n() {
-  // 언어 결정 (브라우저 기본 언어가 en 으로 시작하면 en, 아니면 ko)
   const lang = navigator.language.startsWith("en") ? "en" : "ko";
-  // data-i18n 속성으로 바꿀 키 지정
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.dataset.i18n;
-    const txt = I18N[lang][key];
-    if (el.tagName === "INPUT") {
+    const txt = I18N[lang][key] || "";
+    
+    if ("placeholder" in el) {
       el.placeholder = txt;
     } else {
       el.textContent = txt;
     }
   });
 }
+
