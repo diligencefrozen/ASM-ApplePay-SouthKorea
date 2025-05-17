@@ -130,86 +130,71 @@ body {
   transform: translateY(100%);
   transition: transform 0.5s;
 }
-/* 패치노트 버튼 스타일 */
-#patch-notes-toggle {
-  display: block;
-  margin: 10px auto;
-  padding: 8px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  z-index: 3; /* 지도 위에 표시 */
-  position: absolute;
-  bottom: 10px;
-  left: calc(50% - 140px); 
-  transform: translateY(-90%); 
-}
-/* 패치노트 내용 스타일 */
-#patch-notes-content {
-  display: none;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  font-family: 'Noto Sans KR', sans-serif;
-  max-height: 70vh;
-  overflow-y: auto;
-  z-index: 2; /* 지도 위에 표시 */
-  transform: translateY(-100%);
-}
-#patch-notes-content.is-active {
-  transform: translateY(0);
-}
-/* 필독사항 영역 스타일 */
-#notice {
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: white;
-  font-family: 'Noto Sans KR', sans-serif;
-  z-index: 1; 
-  transform: translateY(100%);
-  transition: transform 0.5s;
-}
-/* 필독사항 영역 버튼 스타일 */
+/*────────────────────────────────────────────────
+  1) 기존 #patch-notes / #notice wrappers 안에서
+     버튼을 꺼내거나, CSS로 position 고정하기
+────────────────────────────────────────────────*/
+#patch-notes-toggle,
 #notice-toggle {
-  display: block;
-  margin: 10px auto;
+  position: fixed;     /* viewport 기준 */
+  bottom: 20px;        /* 아래에서 20px */
+  z-index: 1000;       /* 지도 위로 띄우기 */
   padding: 8px 20px;
-  background-color: #007bff;
+  background: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  z-index: 3;
-  position: absolute;
-  bottom: 10px;
-  left: calc(50% + 20px);
-  transform: translateY(-90%);
+  /* transform 없애기! 부모의 translateY(-100%) 에서 자유로워짐 */
+  transform: none !important;
 }
-/* 필독사항 영역 내용 스타일 */
+
+/* 왼쪽에는 패치노트, 오른쪽에는 필독사항 */
+#patch-notes-toggle {
+  left: 20px;
+}
+
+#notice-toggle {
+  right: 20px;
+}
+
+/*────────────────────────────────────────────────
+  2) #patch-notes, #notice wrapper 는 
+     오로지 내용(pane) 토글용으로만 사용
+────────────────────────────────────────────────*/
+/* wrapper 자체를 translateY 로 숨기지 말고, 
+   content 에서만 .is-active 를 토글하세요 */
+#patch-notes {
+  display: none;  /* 이제 이건 필요 없습니다 */
+}
+#notice {
+  display: none;
+}
+
+/* 실제 팝업 콘텐츠(#*-content)만 .is-active 에 따라 나타나게 */
+#patch-notes-content,
 #notice-content {
   display: none;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  font-family: 'Noto Sans KR', sans-serif;
+  position: fixed; 
+  top: 10%;
+  left: 20%;
+  right: 20%;
   max-height: 70vh;
   overflow-y: auto;
-  z-index: 4; 
-  transform: translateY(-100%);
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 1001;
+  transition: opacity .3s ease;
 }
+#patch-notes-content.is-active,
 #notice-content.is-active {
-  transform: translateY(0);
+  display: block;
+  opacity: 1;
 }
+
 .popup {
   display: none;
   position: absolute;
