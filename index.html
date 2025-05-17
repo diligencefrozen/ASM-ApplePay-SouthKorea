@@ -2,7 +2,6 @@
 <html>
     <script src="path/to/kakao-maps-sdk.js"></script>
     <script src="i18n.js"></script>
-    <script src="main.js" defer></script>
     
 <head>
     <meta charset="cp949">
@@ -47,35 +46,6 @@
 
 <div id="search-box">
     <input type="text" id="search-input" placeholder="장소를 검색하세요." data-i18n="searchPlaceholder">
-    <button id="reportToggle" data-i18n="reportBtn"></button>
-
-    <div id="reportModal" style="display:none;">
-    <input id="storeName" data-i18n="storeNamePlaceholder">
-    <label data-i18n="categoryLabel"></label>
-    <select id="category">
-      <option value="convenience">Convenience</option>
-      <option value="cafe">Cafe</option>
-      <!-- … -->
-        <form id="reportForm"
-            action="https://docs.google.com/forms/d/e/<YOUR_FORM_ID>/formResponse"
-            method="POST"
-            target="_blank">
-            <input name="entry.1234567890" id="storeName" data-i18n="storeNamePlaceholder" required>
-            <select name="entry.2345678901" id="category" required>
-                <option value="convenience">Convenience</option>
-                <option value="cafe">Cafe</option>
-                <!-- … -->
-            </select>
-            <!-- 위도/경도는 숨김 필드로 넣어둡니다 -->
-            <input type="hidden" name="entry.3456789012" id="lat">
-            <input type="hidden" name="entry.4567890123" id="lng">
-            <button type="submit" id="submitReport" data-i18n="submitBtn"></button>
-        </form>
-
-        
-    </select>
-    <button id="submitReport" data-i18n="submitBtn"></button>
-  </div>
 
     <button id="search-submit">
         <img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/searchicon.png?raw=true" alt="Search">
@@ -124,7 +94,7 @@
             <li>20240613.3: 가맹점 업데이트 (커피, 백화점, 온라인) </li>
             <li>20240914.10: 가맹점 업데이트 및 UI 개선 (편의점, 패션, 카페, 외식) </li>
             <li>20250101.5: 가맹점 업데이트 (생활/가전, 커피, 제과/디저트, 온라인) </li>
-            <li>20250517.3: 기능 개선 (위치 기반 초기 로딩, 다국어 감지, 가맹점 제보 기능) </li>
+            <li>20250517.4: 기능 개선 (위치 기반 초기 로딩, 다국어 감지, 가맹점 제보 기능) </li>
         </ul>
     </div>
     
