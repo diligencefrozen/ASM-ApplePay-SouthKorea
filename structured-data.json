@@ -1,0 +1,12 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "https://diligencefrozen.github.io/applepay-southkorea-map/",
+  "name": "애플페이 가맹점 찾기",
+  "description": "대한민국 내 애플페이 지원 매장을 지도에서 손쉽게 찾아보세요.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://diligencefrozen.github.io/applepay-southkorea-map/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
