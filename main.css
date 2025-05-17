@@ -152,18 +152,6 @@ body {
   font-size: 16px;
 }
 
-/* 원래 쓰셨던 left/right 속성은 모두 지우세요! */
-
-
-/* 왼쪽에는 패치노트, 오른쪽에는 필독사항 */
-#patch-notes-toggle {
-  left: 20px;
-}
-
-#notice-toggle {
-  right: 20px;
-}
-
 /*────────────────────────────────────────────────
   2) #patch-notes, #notice wrapper 는 
      오로지 내용(pane) 토글용으로만 사용
