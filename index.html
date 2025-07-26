@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>    
 <head>
     <meta charset="utf-8">
     <meta name="google-site-verification" content="c4eTxK6D1wFIOq01h8LLX02-f44HSO5gXqCsqGhr8AE" />
@@ -11,133 +11,1032 @@
     <meta name="author" content="Diligencefrozen">
     <meta name="keyword" content="애플페이,애플 페이,Apple Pay,ApplePay,applepay,애플페이 사용처,애플페이지도,애플페이 지도,애플페이사용처,애플페이 가맹점,애플페이가맹점,애플페이 가맹점 지도,애플페이가맹점지도,애플페이맵,애플페이 맵">
     <link rel="icon" href="https://diligencefrozen.github.io/images/logo.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="main.css">
     <meta name="robots" content="index, follow">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>애플페이 가맹점 찾기</title>
 
-    <!-- Kakao Maps SDK -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d51b1a671a08a16ab1a8b8b139507d1c&libraries=services"></script>
-    <!-- 구조화 데이터 -->
     <script type="application/ld+json" src="https://diligencefrozen.github.io/ASM-ApplePay-SouthKorea/structured-data.json"></script>
-
-    <!-- =====  STYLES  ===== -->
-    <style>
-        :root{
-            /* Glass */
-            --glass-bg-light: rgba(255,255,255,0.35);
-            --glass-bg-dark : rgba(28,28,30,0.30);
-            --glass-border-light: rgba(255,255,255,0.60);
-            --glass-border-dark : rgba(255,255,255,0.10);
-            --blur: 30px;
-            /* Colors */
-            --accent:#007aff;
-            --bg:#f2f2f7;
-            --text:#000;
-        }
-        @media (prefers-color-scheme: dark){
-            :root{--bg:#000;--text:#fff;}
-        }
-        *{box-sizing:border-box;}
-        body{
-            margin:0; background:var(--bg); color:var(--text);
-            font-family:-apple-system,BlinkMacSystemFont,"SF Pro",Roboto,"Helvetica Neue",Arial,sans-serif;
-            -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
-        }
-        a{color:var(--accent);text-decoration:none;}
-        /* Glass util */
-        .glass{
-            background:var(--glass-bg-light);
-            border:1px solid var(--glass-border-light);
-            backdrop-filter:blur(var(--blur));
-            -webkit-backdrop-filter:blur(var(--blur));
-        }
-        @media (prefers-color-scheme: dark){
-            .glass{background:var(--glass-bg-dark);border:1px solid var(--glass-border-dark);}
-        }
-        /* Map */
-        #map{width:100%;height:100vh;}
-        /* Search Box */
-        #search-box{
-            position:fixed;top:env(safe-area-inset-top,10px);left:50%;transform:translateX(-50%);
-            display:flex;align-items:center;gap:8px;
-            width:90%;max-width:500px;padding:8px 12px;border-radius:16px;z-index:1000;
-        }
-        #search-box input{flex:1;border:none;background:transparent;color:var(--text);font-size:14px;outline:none;}
-        #search-box button{border:none;background:none;cursor:pointer;padding:0;}
-        /* Apple‑Pay Notice */
-        #apple-pay-notice{position:fixed;top:calc(env(safe-area-inset-top)+60px);left:50%;transform:translateX(-50%);gap:6px;padding:6px 10px;border-radius:12px;font-size:13px;z-index:1000;}
-        #apple-pay-notice img{margin-right:6px;}
-        /* Category Bar */
-        .nav-control-categories{
-            position:fixed;bottom:env(safe-area-inset-bottom,0);left:0;right:0;
-            display:flex;justify-content:space-around;gap:4px;padding:6px;z-index:1000;
-        }
-        .nav-control-categories button{
-            flex:1;border:none;border-radius:12px;padding:6px 4px;font-size:12px;color:var(--text);
-            background:var(--glass-bg-light);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
-        }
-        @media(prefers-color-scheme:dark){.nav-control-categories button{background:var(--glass-bg-dark);border:1px solid var(--glass-border-dark);}}
-        /* Patch/Notice Popup */
-        #patch-notes-content,#notice-content{border-radius:20px;max-height:80vh;overflow-y:auto;background:var(--bg);}
-        #patch-notes-toggle,#notice-toggle{border:none;border-radius:12px;padding:6px 12px;margin:6px;cursor:pointer;}
-        /* Info Card */
-        .card{min-width:160px;max-width:220px;padding:12px;border-radius:16px;font-size:12px;background:var(--glass-bg-light);border:1px solid var(--glass-border-light);backdrop-filter:blur(var(--blur));}
-        .card-title{font-weight:700;margin-bottom:4px;}
-        @media(prefers-color-scheme:dark){.card{background:var(--glass-bg-dark);border:1px solid var(--glass-border-dark);}}
-    </style>
-
-    <!-- =====  JSON‑LD FAQ / HowTo / Breadcrumb / Org  ===== -->
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"애플페이 가맹점은 어떻게 찾나요?","acceptedAnswer":{"@type":"Answer","text":"지도에서 원하는 카테고리 버튼을 클릭하거나, 검색창에 매장명을 입력하세요."}},{"@type":"Question","name":"How do I find Apple Pay merchants?","acceptedAnswer":{"@type":"Answer","text":"Click the desired category button on the map, or type the store name in the search bar."}}]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"애플페이 가맹점 찾기 사용법","description":"지도에서 카테고리를 선택하고 매장을 찾는 방법 안내","step":[{"@type":"HowToStep","position":1,"name":"홈페이지 접속","itemListElement":{"@type":"HowToDirection","text":"https://…/applepay-southkorea-map/ 에 접속합니다."}},{"@type":"HowToStep","position":2,"name":"카테고리 선택","itemListElement":{"@type":"HowToDirection","text":"화면 하단의 카테고리 버튼(예: 편의점/카페)을 클릭합니다."}},{"@type":"HowToStep","position":3,"name":"매장 정보 확인","itemListElement":{"@type":"HowToDirection","text":"마커를 클릭하면 매장명·주소가 표시됩니다."}}]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://diligencefrozen.github.io/applepay-southkorea-map/"}]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"애플페이 가맹점 찾기","url":"https://diligencefrozen.github.io/applepay-southkorea-map/","logo":"https://diligencefrozen.github.io/images/logo.ico","sameAs":["https://github.com/diligencefrozen","https://diligencefrozen.github.io/ASM-ApplePay-SouthKorea/"]}</script>
-
-    <!-- 부가 스크립트 -->
-    <script>document.oncontextmenu=()=>false;</script>
+    <script>document.oncontextmenu = () => false;</script>
     <script src="i18n.js" defer></script>
-</head>
-<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" onkeydown="return false">
-    <div id="map"></div>
-
-    <!-- Search Box -->
-    <div id="search-box" class="glass">
-        <input type="text" id="search-input" data-i18n="searchPlaceholder" placeholder="장소를 검색하세요.">
-        <button id="search-submit"><img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/searchicon.png?raw=true" alt="Search"></button>
-    </div>
-    <!-- ApplePay Notice -->
-    <div id="apple-pay-notice" class="glass"><img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/applepay.png?raw=true" width="30" height="15" alt="ApplePay"> 스티커를 꼭 확인하세요!</div>
-
-    <!-- Patch Notes Popup -->
-    <div id="patch-notes" class="is-active">
-        <button id="patch-notes-toggle" class="glass">패치노트</button>
-        <div id="patch-notes-content" class="glass" style="display:none;position:fixed;top:10%;left:10%;right:10%;padding:20px;z-index:9999;">
-            <button id="close-patch-notes" style="position:absolute;top:10px;right:10px;background:none;border:none;font-size:20px;">&times;</button>
-            <ul>
-                <h3><b>패치노트</b></h3>
-                <h4><b><font color="#999999">Last Update: 01/01/2025 23:32 KST</font></b></h4>
-                <!-- (기존 리스트 동일) -->
-            </ul>
-        </div>
-    </div>
-
-    <!-- Notice Popup -->
-    <div id="notice" class="is-active">
-        <button id="notice-toggle" class="glass">필독사항</button>
-        <div id="notice-content" class="glass" style="display:none;position:fixed;top:10%;left:10%;right:10%;padding:20px;z-index:9999;">
-            <button id="close-notice" style="position:absolute;top:10px;right:10px;background:none;border:none;font-size:20px;">&times;</button>
-            <ul>
-                <h3><b>필독사항</b></h3>
-                <h4><b><font color="#999999">Last Update: 12/26/2023 13:35 KST</font></b></h4>
-                <!-- (기존 필독사항 리스트 동일) -->
-            </ul>
-        </div>
-    </div>
-
-    <!-- Category Bar (자동 생성 JS) -->
-
-    <!-- =================  MAIN MAP SCRIPT  ================= -->
     <script src="main.js" defer></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "애플페이 가맹점은 어떻게 찾나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "지도에서 원하는 카테고리 버튼을 클릭하거나, 검색창에 매장명을 입력하세요."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find Apple Pay merchants?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Click the desired category button on the map, or type the store name in the search bar."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "애플페이 가맹점 찾기 사용법",
+    "description": "지도에서 카테고리를 선택하고 매장을 찾는 방법 안내",
+    "step": [
+    {
+    "@type": "HowToStep",
+    "position": 1,
+    "name": "홈페이지 접속",
+    "itemListElement": {
+    "@type": "HowToDirection",
+    "text": "https://…/applepay-southkorea-map/ 에 접속합니다."
+    }
+    },
+    {
+    "@type": "HowToStep",
+    "position": 2,
+    "name": "카테고리 선택",
+    "itemListElement": {
+    "@type": "HowToDirection",
+    "text": "화면 하단의 카테고리 버튼(예: 편의점/카페)을 클릭합니다."
+    }
+    },
+    {
+    "@type": "HowToStep",
+    "position": 3,
+    "name": "매장 정보 확인",
+    "itemListElement": {
+    "@type": "HowToDirection",
+    "text": "마커를 클릭하면 매장명·주소가 표시됩니다."
+    }
+    }
+    ]
+    }
+</script>
+
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+    {
+    "@type": "ListItem",
+    "position": 1,
+    "name": "홈",
+    "item": "https://diligencefrozen.github.io/applepay-southkorea-map/"
+    }
+    
+    ]
+    }
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "애플페이 가맹점 찾기",
+  "url": "https://diligencefrozen.github.io/applepay-southkorea-map/",
+  "logo": "https://diligencefrozen.github.io/images/logo.ico",
+  "sameAs": [
+    "https://github.com/diligencefrozen",
+    "https://diligencefrozen.github.io/ASM-ApplePay-SouthKorea/"
+  ]
+}
+</script>
+
+
+</head>
+    
+<style>
+    #apple-pay-notice {
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    #apple-pay-notice img {
+        margin-right: 10px;
+    }  
+</style>
+    
+<body
+    style="
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    "
+    oncontextmenu="return false"
+    onselectstart="return false"
+    ondragstart="return false"
+    onkeydown="return false">
+<div id="map"></div>
+
+<div id="search-box">
+    <input type="text" id="search-input" data-i18n="searchPlaceholder" placeholder="장소를 검색하세요.">
+    <button id="search-submit">
+        <img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/searchicon.png?raw=true" alt="Search">
+    </button>
+</div>
+
+<!-- 추가: Apple Pay 안내 메시지 -->
+<div id="apple-pay-notice">
+    <img src="https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/applepay.png?raw=true" width="30" height="15"> 스티커를 꼭 확인하세요!
+</div>
+        
+<!-- 업데이트 내역 영역 -->
+<div id="patch-notes" class="is-active">
+    <button id="patch-notes-toggle">패치노트</button>
+    <div id="patch-notes-content" style="display: none; position: fixed; top: 10%; left: 20%; right: 20%; background-color: white; border: 1px solid gray; padding: 20px; z-index: 9999;">
+        <button id="close-patch-notes" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px;">&times;</button>
+        <ul>
+            <h3><b>패치노트</h3></b>
+            <h4><b><font color="999999">Last Update: 01/01/2025 23:32 KST</h4></b></font>
+            <li>20230524.1: 초기 버전 출시</li>
+            <li>20230718.7: 사용자 인터페이스 업데이트 및 가맹점 추가 (편의점, 카페)</li>
+            <li>20230720.11: 가맹점 추가 (마트/슈퍼) 및 사용자 인터페이스 개선 (검색 기능 추가)</li>
+            <li>20230721.9: 가맹점 추가 (제과/디저트) 및 사용자 인터페이스 개선 (검색 기능 개선 / 마커 기능 추가) </li>
+            <li>20230723.9: 사용자 인터페이스 개선 (검색 기능 디자인 변경 / 모바일 기기로 접속시 반응하는 인터페이스 개선) </li>
+            <li>20230724.1: 사용자 인터페이스 개선 </li>
+            <li>20230726.16: 가맹점 수정 (롯데마트/롯데백화점/롯데슈퍼) </li>
+            <li>20230802.9: 사용자 인터페이스 개선</li>
+            <li>20230803.11: 가맹점 추가(외식/생활,가전) 및 사용자 인터페이스 개선</li>
+            <li>20230804.4: 가맹점 추가(호텔,리조트) 및 사용자 인터페이스 업데이트</li>
+            <li>20230805.8: 사용자 인터페이스 개선</li>
+            <li>20230808.1: 가맹점 추가(주유,충전)</li>
+            <li>20230809.2: 가맹점 추가(영화, 도서) 및 가맹점 수정(편의점)</li>
+            <li>20230811.1: 가맹점 추가(레저, 여행)</li>
+            <li>20230818.5: 가맹점 추가(약국) 및 수정(외식) 그리고 사용자 인터페이스 개선(패치노트, 필독사항 영역)</li>
+            <li>20230821.3: 사용자 인터페이스 개선 (패치노트 영역, 현재 위치 표시 기능 개선)</li>
+            <li>20230822.1: 가맹점 수정 (기타, 생활&가전)</li>
+            <li>20231008.5: 사용자 인터페이스 수정 (카테고리, 필독사항)</li>
+            <li>20231014.1: 사용자 인터페이스 수정 (화면 비율 수정)</li>
+            <li>20231017.2: 사용자 인터페이스 수정 (검색 버튼 수정)</li>
+            <li>20231105.10: 사용자 인터페이스 개선 ('기타' 메뉴 삭제(약국 삭제), 온라인 메뉴 추가, 문의 메뉴 추가)</li>
+            <li>20231201.6: 가맹점 업데이트 (백화점/쇼핑, 마트/슈퍼, 커피, 외식, 온라인)</li>
+            <li>20231221.3: 가맹점 업데이트 (외식, 온라인)</li>
+            <li>20231226.6: 가맹점 업데이트 (외식, 백화점/쇼핑) 및 사용자 인터페이스 개선</li>
+            <li>20240125.7: 사용자 인터페이스 개선 (사이트 하단에 애플페이 스티커 관련 안내 문구 추가)</li>
+            <li>20240225.2: 가맹점 업데이트 (커피, 외식) </li>
+            <li>20240613.3: 가맹점 업데이트 (커피, 백화점, 온라인) </li>
+            <li>20240914.10: 가맹점 업데이트 및 UI 개선 (편의점, 패션, 카페, 외식) </li>
+            <li>20250101.5: 가맹점 업데이트 (생활/가전, 커피, 제과/디저트, 온라인) </li>
+            <li>20250517.11: 기능 개선 (영어 지원 1/10) </li>
+        </ul>
+    </div>
+    
+<script>
+
+    const patchNotesToggle = document.getElementById('patch-notes-toggle');
+    const patchNotesContent = document.getElementById('patch-notes-content');
+    const closePatchNotes = document.getElementById('close-patch-notes');
+    const patchNotes = document.getElementById('patch-notes');
+    
+    // 패치노트 버튼 클릭 시 팝업창 활성화
+    patchNotesToggle.addEventListener('click', function () {
+        patchNotesContent.style.display = 'block';
+        patchNotesToggle.style.display = 'none';
+    });
+
+    // x 버튼 클릭 시 팝업창 닫기
+    closePatchNotes.addEventListener('click', function () {
+        patchNotesContent.style.display = 'none';
+        patchNotesToggle.style.display = 'block';
+    });
+</script>
+
+<!-- 필독사항 영역 -->
+<div id="notice" class="is-active">
+    <button id="notice-toggle">필독사항</button>
+    <button id="patch-notes-toggle">패치노트</button>
+    <div id="notice-content" style="display: none; position: fixed; top: 10%; left: 20%; right: 20%; background-color: white; border: 1px solid gray; padding: 20px; z-index: 9999;">
+        <button id="close-notice" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px;">&times;</button>
+        <ul>
+            <h3><b>필독사항</h3></b>
+            <h4><b><font color="999999">Last Update: 12/26/2023 13:35 KST</h4></b></font>
+            <li><b>Menu</li></b>
+            <li>🏠 집 모양 버튼을 클릭하면, 당신의 현재 위치로 이동합니다.</li>
+            <li>🍎 아이폰 사용자는 <a href="https://apps.apple.com/kr/app/%EB%84%A4%EC%9D%B4%EB%B2%84-naver/id393499958">네이버 앱</a>을 사용하세요.</li>
+            <li>🍎 아이패드, 맥 사용자는 <a href="https://www.google.com/chrome/">Chrome</a>을 사용하세요.</li>
+            <li>⚠️ 동일한 건물 내부에 존재하는 요소들은 같은 장소로 분류될 수도 있습니다.</li>
+            <li>⭐ 가맹점 세부정보를 확인하고 싶다면, 마커를 마우스로 좌클릭하세요.</li>
+            <li>⭐ 애플페이 가맹점 분류는 <a href="https://www.hyundaicard.com/cpu/ug/CPUUG4001_02.hc?tabindex=1">현대카드 애플페이 문서</a>를 참고했습니다. </li>
+        </ul>
+    </div>
+
+<script>
+    const noticeToggle = document.getElementById('notice-toggle');
+    const noticeContent = document.getElementById('notice-content');
+    const closeNotice = document.getElementById('close-notice');
+    const patchNoteToggle = document.getElementById('patch-notes-toggle');
+    
+    noticeToggle.addEventListener('click', function () {
+        noticeContent.style.display = 'block';
+        noticeToggle.style.display = 'none';
+        patchNoteToggle.style.zIndex = 1; 
+    });
+    
+    closeNotice.addEventListener('click', function () {
+        noticeContent.style.display = 'none';
+        noticeToggle.style.display = 'block';
+        patchNoteToggle.style.zIndex = ''; // 팝업창 비활성화될 때 패치 노트 버튼 z-index를 원래대로 돌림
+    });
+</script>
+   
+
+<!-- 지도 스크립트 코드 -->
+<script>
+  var searchMarker;
+  var container = document.getElementById("map");
+  var options = {
+    center: new kakao.maps.LatLng(37.34487430629196, 127.93071437137233),
+    level: 3,
+  };
+  // 마커 이미지 URL
+  /* 편의점 2024.09.14 */  
+  var GS25ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true";
+  var CUImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true";
+  var sevenelevenImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true";
+  var emart24ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true";
+  var ministopImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true";
+  var storywayImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true";
+  var cspaceImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/conveniencestore.png?raw=true";
+    
+  /* 카페 2025.01.01 */      
+  var starbucksImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var twosomeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var bbaekImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var megaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var ediyaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var theventiImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var hollysImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var gongchaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var coffeebeanImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var angelinusImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var pbImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var pascucciImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var bluebottleImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var tntcoffeeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var amasvinImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var coffeebayImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var terarosaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var jambaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var coffeworksImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var cafestorywayImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var cafesobiImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var atijeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var dancingcupImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var thtImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var composeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var cafecommaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var hioImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+  var cafebombomImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/cafe.png?raw=true";
+    
+  /* 백화점/쇼핑 2023.12.26 */  
+  /* 롯데백화점 2023.08.02 */ 
+  var lottedepartmentStoreImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/departmentstore.png?raw=true";    
+  var lotteoutletImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";   
+  var lottemallImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var lottedutyfreeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var hyundaidepartmentStoreImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/departmentstore.png?raw=true";  
+  var hyundaioutletImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var hyundaidepartmentStoredutyfreeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/departmentstore.png?raw=true";   
+  var AKplazaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var parnasmallImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var iparkmallImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var alleywayImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var thesilladutyfreeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var musinsastandardImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var innisfreeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var jdcImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var starfieldImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var galerImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";  
+  var ssgImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mall.png?raw=true";
+    
+  /* 마트/슈퍼 2023.12.01 */  
+  var costcoImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  /* 롯데마트 2023.08.02 */      
+  var lottemartImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var lottesuperImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var homeplusmartImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var homeplusexpressImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var gsthefreshImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var hanaromartImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var greentownImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var sigjajaeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var gohyangImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var emarteverydayImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mart.png?raw=true";
+  var map = new kakao.maps.Map(container, options);
+
+  /* 제과/디저트 2025.01.01 */   
+  var parisbagguetteImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+  var parisImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+  var touslesjoursImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+  var BRImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/icecreamparlor.png?raw=true";
+  var dunkinImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+  var krispyImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+  var dessert39ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+  var trippinImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+  var bizzenImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+  var cookienalImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+  var cpImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/bakery.png?raw=true";
+    
+  /* 외식 2024.09.14 */  
+  var lotteriaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var mcdonaldsImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var kfcImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var shakeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var lagriliaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var piginthegardenImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var kimkanaeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var bongchuImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var streatImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var queensparkImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var veraImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var lateImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var eggImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var citydeliImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var linasImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var vipsImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var jaeilImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var theplaceImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var thesteakhouseImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var thetastableImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var papaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var shilaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var cucharaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var outbackImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var pletingImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var isaacImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var hansotImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+  var fiveImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/restaurants.png?raw=true";
+    
+  /* 생활,가전 2025.01.01 */  
+  var ikeaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var daisoImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var lottehimartImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var lgbestshopImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var frisbeeImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var ashopImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var willysImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var artboxImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var abcmartImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var officedipoImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var toysImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var printImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+  var acebedImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/homeappliances.png?raw=true";
+    
+  /* 호텔,리조트 2023.08.04 */  
+  var haevichiImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var lottehotelImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var hotelshillaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var grandImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var grand2ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var parkImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var park2ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var conradImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var forseasonsImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var paradiseImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var banyanImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var chosenImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var grand3ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var coexImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var parnasImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var walkImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var walk2ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var hanhwaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var theplazaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var gangnamImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var ryseImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var oakImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var darakImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var gladImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var seoulImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var sageImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+  var seoul2ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/hotelandresort.png?raw=true";
+
+  /* 패션,뷰티 2024.09.14 */  
+  var oliveImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/fasion.png?raw=true";
+  var musinsaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/fasion.png?raw=true";
+  var innisImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/fasion.png?raw=true";
+  var abc2ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/fasion.png?raw=true";
+  var mplayImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/fasion.png?raw=true";
+    
+  /* 주유,충전 2023.08.08 */  
+  var GSImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/gasstation.png?raw=true";
+  var E1ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/gasstation.png?raw=true";
+
+  /* 영화,도서 2023.08.09 */  
+  var lottecinemaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/movieandbooks.png?raw=true";
+  var kyoboImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/movieandbooks.png?raw=true";
+  var kyobohotImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/movieandbooks.png?raw=true";
+  var yeongpoongImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/movieandbooks.png?raw=true";
+  var aladinImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/movieandbooks.png?raw=true";
+  var jongnoImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/movieandbooks.png?raw=true";
+
+  /* 레저,여행 2023.08.11 */  
+  var seoullandImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/leisure.png?raw=true";
+  var aquaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/leisure.png?raw=true";
+  var waterpiaImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/leisure.png?raw=true";
+  var NseoultowerImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/leisure.png?raw=true";
+  var airplaneImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/leisure.png?raw=true";
+  var matina1ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/leisure.png?raw=true";
+  var matina2ImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/leisure.png?raw=true";
+  var sungmunanImageUrl = "https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/leisure.png?raw=true";
+
+  /* 기타 2023.08.21 
+  var yakkukImageUrl = "hhttps://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/guitar.png?raw=true";
+  var davichImageUrl = "hhttps://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/guitar.png?raw=true";
+  var dosirakImageUrl = "hhttps://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/guitar.png?raw=true";
+  */
+    
+  var map = new kakao.maps.Map(container, options);    
+  var zoomControl = new kakao.maps.ZoomControl();
+  map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT); 
+  container.style.width = "100%"; // 지도의 너비를 100%로 설정
+  container.style.height = window.innerHeight + "px";
+
+var home = document.createElement("div");
+home.innerHTML = "🏠";
+home.style.width = "30px";
+home.style.height = "30px";
+home.style.lineHeight = "30px";
+home.style.textAlign = "center";
+home.className = "nav-control";
+container.appendChild(home);
+
+// 추가: 현재 위치 마커 변수 생성
+var currentPositionMarker = null;
+
+home.addEventListener("click", function () {
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        var newPos = new kakao.maps.LatLng(lat, lng);
+        map.setCenter(newPos);
+
+        // 추가: 현재 위치 마커 추가
+        if (currentPositionMarker) {
+          currentPositionMarker.setMap(null);
+        }
+
+        currentPositionMarker = new kakao.maps.Marker({
+          position: newPos,
+          map: map,
+          image: new kakao.maps.MarkerImage(
+            'https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/mylocation.png?raw=true',
+            new kakao.maps.Size(50, 45),
+            {
+              offset: new kakao.maps.Point(25, 45),
+              alt: "현재 위치"
+            }
+          )
+        });
+    },
+    function (error) {
+        console.error(error);
+    },
+    {
+        maximumAge: 60000,
+        timeout: 10000,
+        enableHighAccuracy: true,
+    }
+  );
+});
+
+
+  function displayMarker(place, markerImage) {
+      var markerPosition = new kakao.maps.LatLng(place.y, place.x);
+      var markerOptions = {
+          position: markerPosition,
+          image: markerImage,
+      };
+      var marker = new kakao.maps.Marker(markerOptions);
+      
+      marker.setMap(map);
+      
+      var infoWindowContent = `
+      <div class="infoWindow">
+       <div class="infoWindowCloseBtn" onclick="closeInfoWindow()">&times;</div>
+       <strong>${place.place_name}</strong> (${place.category_name})
+       <br>
+       ${place.address_name}
+      </div>`;
+      
+      var infoWindow = new kakao.maps.InfoWindow({ content: infoWindowContent });
+      
+      window.closeInfoWindow = function() {
+          infoWindow.close();
+      };
+      
+      document.addEventListener('click', function(event) {
+          var target = event.target;
+          if (target.classList.contains('infoWindowCloseBtn')) {
+              infoWindow.close();
+          }
+      });
+      
+      kakao.maps.event.addListener(marker, "mouseover", function () {
+          infoWindow.open(map, marker);
+      });
+      
+      kakao.maps.event.addListener(marker, "mouseout", function () {
+          infoWindow.close();
+      });
+      
+      kakao.maps.event.addListener(marker, "click", function () {
+          if (infoWindow.getMap()) {
+              infoWindow.close();
+          } else {
+              infoWindow.open(map, marker);
+          }
+      });
+  }
+
+    
+  function requestLocation() {
+      navigator.geolocation.getCurrentPosition(
+          function (position) {
+              var lat = position.coords.latitude;
+              var lng = position.coords.longitude;
+              var newPos = new kakao.maps.LatLng(lat, lng);
+              map.setCenter(newPos);
+          },
+          function (error) {
+              console.error(error);
+          },
+          {
+              maximumAge: 60000,
+              timeout: 10000,
+              enableHighAccuracy: true,
+          }
+      );
+  }
+    
+  function searchPlaces() {
+      var keyword = document.getElementById('search-input').value;
+      
+      if (!keyword.replace(/^\s+|\s+$/g, '')) {
+          alert('키워드를 입력해주세요.');
+          return false;
+      }
+      
+      if (searchMarker) {
+          searchMarker.setMap(null);
+      }
+      
+      var places = new kakao.maps.services.Places();
+      
+      places.keywordSearch(keyword, function (data, status, pagination) {
+          if (status === kakao.maps.services.Status.OK) {
+              var searchPosition = new kakao.maps.LatLng(data[0].y, data[0].x);
+              map.setCenter(searchPosition);
+              
+              var searchMarkerImage = createMarkerImage('https://github.com/diligencefrozen/applepay-southkorea-map/blob/main/logo/marker.png?raw=true');
+              var searchMarkerOptions = {
+                  position: searchPosition,
+                  image: searchMarkerImage,
+              };
+              searchMarker = new kakao.maps.Marker(searchMarkerOptions);
+              searchMarker.setMap(map);
+          
+          } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+              alert('검색 결과가 없습니다.');
+              return;
+          
+          } else if (status === kakao.maps.services.Status.ERROR) {
+              alert('검색 결과를 불러오던 중 오류가 발생했습니다.');
+              return;
+          }
+      });
+  }
+
+document.getElementById('search-submit').addEventListener('click', searchPlaces);
+document.getElementById('search-input').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        searchPlaces();
+    }
+});
+    
+    
+    
+    
+  function createMarkerImage(markerImageUrl) {
+    var markerImageSize = new kakao.maps.Size(24, 35);
+    var markerImageOptions = {
+      spriteOrigin: new kakao.maps.Point(0, 0),
+      spriteSize: new kakao.maps.Size(24, 35),
+    };
+    var markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerImageSize, markerImageOptions);
+
+    return markerImage;
+  }
+    
+  function displayMarker(place, markerImage) {
+    var markerPosition = new kakao.maps.LatLng(place.y, place.x);
+    var markerOptions = {
+      position: markerPosition,
+      image: markerImage,
+    };
+    var marker = new kakao.maps.Marker(markerOptions);
+
+    marker.setMap(map);
+
+    var content = '<div class="infoWindow"><strong>' + place.place_name + '</strong><br>' + place.address_name + '</div>';
+
+    var customOverlay = new kakao.maps.CustomOverlay({
+      position: markerPosition,
+      content: content,
+      xAnchor: 0.5,
+      yAnchor: 1,
+    });
+
+      kakao.maps.event.addListener(marker, 'mouseover', function() {
+        customOverlay.setMap(map);
+      });
+
+        kakao.maps.event.addListener(marker, 'mouseout', function() {
+          customOverlay.setMap(null);
+        });
+
+          kakao.maps.event.addListener(marker, 'click', function() {
+            if (customOverlay.getMap()) {
+              customOverlay.setMap(null);
+            } else {
+              customOverlay.setMap(map);
+            }
+          });
+  }
+
+  function searchAndMark(keyword, markerImage) {
+    var ps = new kakao.maps.services.Places();
+    ps.keywordSearch(keyword, function(data, status, pagination) {
+      if (status === kakao.maps.services.Status.OK) {
+        for (var i = 0; i < data.length; i++) {
+          displayMarker(data[i], markerImage);
+        }
+      }
+    }, { 
+        bounds: map.getBounds(),
+        //useMapBounds: true, useMapBounds: true 옵션을 사용하면 출력되는 범위가 제한되기 때문에 해당 옵션을 제거하거나 변경해야 함.
+    });
+  }
+
+  function searchConvenienceStoresAndStarbucks() {
+    /* 편의점 2024.09.14 */  
+    searchAndMark("GS25", createMarkerImage(GS25ImageUrl));
+    searchAndMark("CU", createMarkerImage(CUImageUrl));
+    searchAndMark("세븐일레븐", createMarkerImage(sevenelevenImageUrl));
+    searchAndMark("이마트24", createMarkerImage(emart24ImageUrl));
+    searchAndMark("미니스톱", createMarkerImage(ministopImageUrl));
+    searchAndMark("스토리웨이", createMarkerImage(storywayImageUrl));
+    searchAndMark("씨스페이스24", createMarkerImage(cspaceImageUrl));
+    /* 카페 2025.01.01 */
+    searchAndMark("스타벅스", createMarkerImage(starbucksImageUrl));
+    searchAndMark("투썸플레이스", createMarkerImage(twosomeImageUrl));
+    searchAndMark("빽다방", createMarkerImage(bbaekImageUrl));
+    searchAndMark("메가커피", createMarkerImage(megaImageUrl));
+    searchAndMark("이디야커피", createMarkerImage(ediyaImageUrl));
+    searchAndMark("더벤티", createMarkerImage(theventiImageUrl));
+    searchAndMark("할리스", createMarkerImage(hollysImageUrl));
+    searchAndMark("공차", createMarkerImage(gongchaImageUrl));
+    searchAndMark("커피빈", createMarkerImage(coffeebeanImageUrl));
+    searchAndMark("엔제리너스", createMarkerImage(angelinusImageUrl));
+    searchAndMark("폴바셋", createMarkerImage(pbImageUrl));
+    searchAndMark("파스쿠찌", createMarkerImage(pascucciImageUrl));
+    searchAndMark("블루보틀", createMarkerImage(bluebottleImageUrl));
+    searchAndMark("탐앤탐스", createMarkerImage(tntcoffeeImageUrl));
+    searchAndMark("아마스빈", createMarkerImage(amasvinImageUrl));
+    searchAndMark("커피베이", createMarkerImage(coffeebayImageUrl));
+    searchAndMark("테라로사", createMarkerImage(terarosaImageUrl));
+    searchAndMark("잠바주스", createMarkerImage(jambaImageUrl));
+    searchAndMark("커피앳웍스", createMarkerImage(coffeeworksImageUrl));
+    searchAndMark("카페스토리웨이", createMarkerImage(cafestorywayImageUrl));    
+    searchAndMark("카페소비", createMarkerImage(cafesobiImageUrl));  
+    searchAndMark("아티제", createMarkerImage(atijeImageUrl));    
+    searchAndMark("댄싱컵", createMarkerImage(dancingcupImageUrl));     
+    searchAndMark("팀홀튼", createMarkerImage(thtImageUrl));   
+    searchAndMark("카페콤마", createMarkerImage(cafecommaImageUrl));  
+    searchAndMark("하이오커피", createMarkerImage(hioImageUrl));  
+    searchAndMark("카페봄봄", createMarkerImage(cafebombomImageUrl));  
+  }
+
+  function searchDepartmentStoresandShoppingMalls() {
+    // 롯데백화점 2023.08.02
+    searchAndMark("롯데백화점", createMarkerImage(lottedepartmentStoreImageUrl));      
+    searchAndMark("롯데아울렛", createMarkerImage(lotteoutletImageUrl));
+    searchAndMark("롯데몰", createMarkerImage(lottemallImageUrl));
+    searchAndMark("롯데면세점", createMarkerImage(lottedutyfreeImageUrl));
+    // 현대백화점 2023.07.20 
+    searchAndMark("현대백화점", createMarkerImage(hyundaidepartmentStoreImageUrl));
+    searchAndMark("현대아울렛", createMarkerImage(hyundaioutletImageUrl));
+    searchAndMark("현대백화점면세점", createMarkerImage(hyundaidepartmentStoredutyfreeImageUrl));
+    // 갤러리아 2023.12.26 
+    searchAndMark("갤러리아", createMarkerImage(galerImageUrl)); 
+    // 쇼핑 2023.12.21   
+    searchAndMark("AK플라자", createMarkerImage(AKplazaImageUrl));  
+    searchAndMark("파르나스몰", createMarkerImage(parnasmallImageUrl));  
+    searchAndMark("아이파크몰", createMarkerImage(iparkmallImageUrl));  
+    searchAndMark("앨리웨이", createMarkerImage(alleywayImageUrl));  
+    searchAndMark("신라면세점", createMarkerImage(thesilladutyfreeImageUrl)); 
+    searchAndMark("무신사스탠다드", createMarkerImage(musinsastandardImageUrl)); 
+    searchAndMark("이니스프리", createMarkerImage(innisfreeImageUrl));      
+    searchAndMark("스타필드", createMarkerImage(starfieldImageUrl)); 
+    searchAndMark("JDC면세점", createMarkerImage(jdcImageUrl));        
+} 
+
+    
+  function searchmartandsuper() {
+    /* 마트/슈퍼 2023.12.01 */      
+    searchAndMark("코스트코", createMarkerImage(costcoImageUrl));  
+    /* 롯데마트 서울 2023.08.02 */        
+    searchAndMark("롯데마트", createMarkerImage(lottemartImageUrl));  
+    /* 롯데슈퍼 2023.07.20 */   
+    searchAndMark("롯데슈퍼", createMarkerImage(lottesuperImageUrl));  
+    searchAndMark("홈플러스 마트", createMarkerImage(homeplusmartImageUrl));  
+    searchAndMark("홈플러스 익스프레스", createMarkerImage(homeplusexpressImageUrl)); 
+    searchAndMark("GS 더 프레시", createMarkerImage(gsthefreshImageUrl)); 
+    searchAndMark("농협하나로마트", createMarkerImage(hanaromartImageUrl)); 
+    searchAndMark("초록마을", createMarkerImage(greentownImageUrl)); 
+    searchAndMark("식자재왕도매마트", createMarkerImage(sigjajaeImageUrl)); 
+    searchAndMark("고향뜨락", createMarkerImage(gohyangImageUrl)); 
+    searchAndMark("이마트 에브리데이", createMarkerImage(emarteverydayImageUrl)); 
+}     
+
+  function searchjaegwaanddessert() {
+    /* 제과/디저트 2025.01.01 */      
+    searchAndMark("파리바게뜨", createMarkerImage(parisbagguetteImageUrl));  
+    searchAndMark("파리크라상", createMarkerImage(parisImageUrl));  
+    searchAndMark("뚜레주르", createMarkerImage(touslesjoursImageUrl));  
+    searchAndMark("베스킨라빈스", createMarkerImage(BRImageUrl));  
+    searchAndMark("던킨", createMarkerImage(dunkinImageUrl)); 
+    searchAndMark("크리스피 크림 도넛", createMarkerImage(krispyImageUrl)); 
+    searchAndMark("디저트39", createMarkerImage(dessert39ImageUrl)); 
+    searchAndMark("트리핀", createMarkerImage(trippinImageUrl)); 
+    searchAndMark("식자재왕도매마트", createMarkerImage(sigjajaeImageUrl)); 
+    searchAndMark("빚은", createMarkerImage(bizzenImageUrl)); 
+    searchAndMark("쿠키날", createMarkerImage(cookienalImageUrl));
+    searchAndMark("쇼콜라팔레트", createMarkerImage(cpImageUrl));
+}      
+    
+ function searchrestaurants() {
+    /* 외식 -1 2024.09.14 */       
+    searchAndMark("롯데리아", createMarkerImage(lotteriaImageUrl));
+    searchAndMark("맥도날드", createMarkerImage(mcdonaldsImageUrl));
+    searchAndMark("KFC", createMarkerImage(kfcImageUrl));
+    searchAndMark("쉐이크쉑", createMarkerImage(shakeImageUrl));
+    searchAndMark("라그릴리아", createMarkerImage(lagriliaImageUrl));
+    searchAndMark("피그인더가든", createMarkerImage(piginthegardenImageUrl));
+    searchAndMark("김가네", createMarkerImage(kimkanaeImageUrl));
+    searchAndMark("봉추찜닭", createMarkerImage(bongchuImageUrl));      
+    searchAndMark("스트릿", createMarkerImage(streatImageUrl));
+    searchAndMark("퀸즈파크", createMarkerImage(queensparkImageUrl));
+    searchAndMark("베라", createMarkerImage(veraImageUrl));
+    searchAndMark("라뜰리에", createMarkerImage(lateImageUrl));
+    searchAndMark("에그슬럿", createMarkerImage(eggImageUrl));
+    searchAndMark("시티델리", createMarkerImage(citydeliImageUrl));
+    searchAndMark("리나스", createMarkerImage(linasImageUrl));
+    searchAndMark("VIPS", createMarkerImage(vipsImageUrl)); 
+    searchAndMark("제일제면소", createMarkerImage(jaeilImageUrl));
+    searchAndMark("더플레이스", createMarkerImage(theplaceImageUrl));
+    searchAndMark("더스테이크하우스", createMarkerImage(thestaekhouseImageUrl));
+    searchAndMark("더테이스터블", createMarkerImage(thetastableImageUrl));
+    searchAndMark("파파이스", createMarkerImage(papaImageUrl));
+    searchAndMark("신라대학교 미대식당", createMarkerImage(shilaImageUrl));
+    searchAndMark("쿠차라", createMarkerImage(cucharaImageUrl));
+    searchAndMark("아웃백 스테이크하우스", createMarkerImage(outbackImageUrl));   
+    searchAndMark("플레이팅", createMarkerImage(pletingImageUrl)); 
+    searchAndMark("이삭토스트", createMarkerImage(isaacImageUrl));   
+    searchAndMark("한솥도시락", createMarkerImage(hansotImageUrl)); 
+    searchAndMark("파이브가이즈", createMarkerImage(fiveImageUrl)); 
+} 
+
+ function searchHomeappliances() {
+    /* 생활,가전 2025.01.01 */       
+    searchAndMark("이케아", createMarkerImage(ikeaImageUrl));
+    searchAndMark("다이소", createMarkerImage(daisoImageUrl));
+    searchAndMark("롯데하이마트", createMarkerImage(lottehimartImageUrl));
+    searchAndMark("LG전자 베스트샵", createMarkerImage(lgbestshopImageUrl));
+    searchAndMark("프리스비", createMarkerImage(frisbeeImageUrl));
+    searchAndMark("에이샵", createMarkerImage(ashopImageUrl));
+    searchAndMark("윌리스", createMarkerImage(willysImageUrl));
+    searchAndMark("아트박스", createMarkerImage(artboxImageUrl));
+    searchAndMark("ABC마트", createMarkerImage(abcmartImageUrl));
+    searchAndMark("오피스디포", createMarkerImage(officedipoImageUrl));
+    searchAndMark("토이저러스", createMarkerImage(toysImageUrl));
+    searchAndMark("프린트카페", createMarkerImage(printImageUrl));
+    searchAndMark("에이스침대", createMarkerImage(acebedImageUrl));
+} 
+
+ function searchresortandhotel() {
+    /* 호텔,리조트 2023.08.04 */       
+    searchAndMark("해비치호텔앤드 리조트", createMarkerImage(haevichiImageUrl));
+    searchAndMark("롯데호텔", createMarkerImage(lottehotelImageUrl));
+    searchAndMark("호텔신라", createMarkerImage(hotelshillaImageUrl));
+    searchAndMark("그랜드 하얏트 서울", createMarkerImage(grandImageUrl));
+    searchAndMark("그랜드 하얏트 인천", createMarkerImage(grand2ImageUrl));
+    searchAndMark("파크 하얏트 서울", createMarkerImage(parkImageUrl));
+    searchAndMark("파크 하얏트 부산", createMarkerImage(park2ImageUrl));
+    searchAndMark("콘래드 서울", createMarkerImage(conradImageUrl));
+    searchAndMark("포시즌스 호텔 서울", createMarkerImage(forseasonsImageUrl));
+    searchAndMark("파라다이스 호텔앤리조트", createMarkerImage(paradiseImageUrl));
+    searchAndMark("반얀트리 클럽 앤 스파 서울", createMarkerImage(banyanImageUrl));
+    searchAndMark("조선호텔앤리조트", createMarkerImage(chosenImageUrl));     
+    searchAndMark("그랜드 인터컨티넨탈 서울 파르나스", createMarkerImage(grand3ImageUrl));
+    searchAndMark("인터컨티넨탈 서울 코엑스", createMarkerImage(coexImageUrl));
+    searchAndMark("파르나스 호텔 제주", createMarkerImage(parnasImageUrl));
+    searchAndMark("워커힐 호텔앤리조트", createMarkerImage(walkImageUrl));
+    searchAndMark("워커힐 환승호텔 (인천국제공항)", createMarkerImage(walk2ImageUrl));
+    searchAndMark("한화호텔앤드리조트", createMarkerImage(hanhwaImageUrl));
+    searchAndMark("더 플라자", createMarkerImage(theplazaImageUrl));
+    searchAndMark("안다즈 서울 강남", createMarkerImage(gangnamImageUrl));
+    searchAndMark("라이즈 오토그래프 컬렉션", createMarkerImage(ryseImageUrl));
+    searchAndMark("오크밸리", createMarkerImage(oakImageUrl));
+    searchAndMark("다락휴", createMarkerImage(darakImageUrl));
+    searchAndMark("글래드호텔앤리조트", createMarkerImage(gladImageUrl));
+    searchAndMark("소피텔 앰배서더 서울", createMarkerImage(seoulImageUrl));
+    searchAndMark("세이지우드", createMarkerImage(sageImageUrl));
+    searchAndMark("페어몬트 앰배서더 서울", createMarkerImage(seoul2ImageUrl));
+} 
+
+ function searchfasion() {
+    /* 패션,뷰티 2024.09.14 */       
+    searchAndMark("올리브영", createMarkerImage(oliveImageUrl));
+    searchAndMark("무신사", createMarkerImage(musinsaImageUrl));
+    searchAndMark("이니스프리", createMarkerImage(innisImageUrl));
+    searchAndMark("ABC마트", createMarkerImage(abc2ImageUrl));
+    searchAndMark("엠플레이 그라운드", createMarkerImage(mplayImageUrl));
+} 
+    
+ function searchgasstation() {
+    /* 주유,충전 2023.08.08 */       
+    searchAndMark("GS칼텍스", createMarkerImage(GSImageUrl));
+    searchAndMark("E1", createMarkerImage(E1ImageUrl));
+}   
+
+ function searchmovieandbooks() {
+    /* 영화,도서 2023.08.09 */       
+    searchAndMark("롯데시네마", createMarkerImage(lottecinemaImageUrl));
+    searchAndMark("교보문구", createMarkerImage(kyoboImageUrl));
+    searchAndMark("교보핫트랙스", createMarkerImage(kyobohotImageUrl));
+    searchAndMark("영풍문구", createMarkerImage(yeongpoongImageUrl));
+    searchAndMark("알라딘 중고서점", createMarkerImage(aladinImageUrl));
+    searchAndMark("종로서적", createMarkerImage(jongnoImageUrl));
+} 
+
+ function searchleisure() {
+    /* 레저,여행 2023.08.11 */       
+    searchAndMark("서울랜드", createMarkerImage(seoullandImageUrl));
+    searchAndMark("아쿠아플라넷", createMarkerImage(aquaImageUrl));
+    searchAndMark("설악 워터피아", createMarkerImage(waterpiaImageUrl));
+    searchAndMark("N서울타워", createMarkerImage(NseoultowerImageUrl));
+    searchAndMark("공항철도", createMarkerImage(airplaneImageUrl));
+    searchAndMark("마티나 골드", createMarkerImage(matina1ImageUrl));
+    searchAndMark("마티나 라운지", createMarkerImage(matina2ImageUrl));
+    searchAndMark("성문안 컨트리클럽", createMarkerImage(sungmunanImageUrl));
+}   
+
+ function searchonline() {
+    /* 온라인 2023.11.05 */       
+    window.location.href = "https://diligencefrozen.github.io/ASM-ApplePay-SouthKorea/online.html";
+} 
+
+ function searchcontact() {
+    /* 온라인 2023.11.05 */       
+    window.location.href = "https://github.com/diligencefrozen/ASM-ApplePay-SouthKorea/issues/new";
+} 
+/*
+ function searchguitar() {
+    /* 기타 2023.08.21 */ /*    
+    searchAndMark("약국", createMarkerImage(yakkukImageUrl));
+    searchAndMark("다비치안경원", createMarkerImage(davichImageUrl));
+    searchAndMark("한솥도시락 강남역점", createMarkerImage(dosirakImageUrl));
+} 
+ */
+    
+  /*
+  var searchButton = document.createElement("button");
+  searchButton.innerHTML = "🔍";
+  searchButton.className = "nav-control-mid-left";
+  searchButton.style.textAlign = "middle";
+  searchButton.style.backgroundColor = "white";
+  searchButton.style.border = "1px solid #ccc";
+  container.appendChild(searchButton);
+  */
+
+/*searchButton.addEventListener("click", searchConvenienceStoresAndStarbucks);*/
+/*searchButton.addEventListener("click", function() {
+      setTimeout(searchConvenienceStoresAndStarbucks, 5300);
+      setTimeout(searchDepartmentStores, 5301);
+    //setTimeout(searchShoppingMalls, 5302);
+      setTimeout(searchmartandsuper, 5302);
+      setTimeout(searchjaegwaanddessert, 5303);
+      setTimeout(searchrestaurants, 5304);
+      setTimeout(searchHomeappliances, 5305);
+    //setTimeout(searchresortandhotel, 5306);
+});
+ // 호텔, 리조트만 불러옴.
+ var searchHotelsButton = document.createElement("button");
+ searchHotelsButton.innerHTML = "🏨";
+ searchHotelsButton.className = "nav-control-bottom-left";
+ searchHotelsButton.style.textAlign = "middle";
+ searchHotelsButton.style.backgroundColor = "white";
+ searchHotelsButton.style.border = "1px solid #ccc";
+ container.parentNode.insertBefore(searchHotelsButton, container.nextSibling);
+    
+ searchHotelsButton.addEventListener("click", function () {
+     setTimeout(searchresortandhotel, 5300);
+ });
+ */
+
+// 필요한 카테고리와 이모지를 배열로 정의
+const categories = [
+    { name: '문의하기', emoji: '문의하기', action: searchcontact },
+    { name: '온라인', emoji: '온라인', action: searchonline },
+    { name: '편의점&카페', emoji: '편의점/카페', action: searchConvenienceStoresAndStarbucks },
+    { name: '백화점/쇼핑', emoji: '백화점/쇼핑', action: searchDepartmentStoresandShoppingMalls },
+    { name: '마트/슈퍼', emoji: '마트/슈퍼', action: searchmartandsuper },
+    { name: '제과/디저트', emoji: '제과/디저트', action: searchjaegwaanddessert },
+    { name: '생활/가전', emoji: '생활/가전', action: searchHomeappliances },
+    { name: '외식', emoji: '외식', action: searchrestaurants },
+    { name: '호텔/리조트', emoji: '호텔/리조트', action: searchresortandhotel },
+    { name: '패션/뷰티', emoji: '패션/뷰티', action: searchfasion },
+    { name: '주유/충전', emoji: '주유/충전', action: searchgasstation },
+    { name: '영화/도서', emoji: '영화/도서', action: searchmovieandbooks },
+    { name: '레저/여행', emoji: '레저/여행', action: searchleisure },
+  /*{ name: '기타', emoji: '기타', action: searchguitar }*/  
+];
+    
+    const categoryContainer = document.createElement('div');
+    categoryContainer.className = 'nav-control-categories';
+    
+    categories.forEach(category => {
+        const button = document.createElement('button');
+        button.innerHTML = category.emoji;
+        button.title = category.name;
+        button.addEventListener('click', () => setTimeout(category.action, 500));
+        categoryContainer.appendChild(button);
+    });
+    
+    container.parentNode.insertBefore(categoryContainer, container.nextSibling);
+    
+    function displayMarker(place, markerImage) {
+        var markerPosition = new kakao.maps.LatLng(place.y, place.x);
+        var markerOptions = {
+            position: markerPosition,
+            image: markerImage,
+        };
+        
+        var marker = new kakao.maps.Marker(markerOptions);
+        
+        marker.setMap(map);
+        
+        // 카드 스타일의 정보창 내용
+        var content = `
+        <div class="card">
+        <div class="card-title">${place.place_name}</div>
+        <div class="card-content">${place.address_name}</div>
+        </div>`;
+        
+        var customOverlay = new kakao.maps.CustomOverlay({
+            position: markerPosition,
+            content: content,
+            xAnchor: 0.5,
+            yAnchor: 1,
+        });
+        
+        kakao.maps.event.addListener(marker, 'mouseover', function() {
+            customOverlay.setMap(map);
+        });
+        
+        kakao.maps.event.addListener(marker, 'mouseout', function() {
+            customOverlay.setMap(null);
+        });
+        
+        kakao.maps.event.addListener(marker, 'click', function() {
+            if (customOverlay.getMap()) {
+                customOverlay.setMap(null);
+            } else {
+                customOverlay.setMap(map);
+            }
+        });
+    }
+
+
+</script>
+
 </body>
 </html>
